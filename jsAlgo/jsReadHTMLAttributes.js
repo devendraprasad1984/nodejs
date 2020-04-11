@@ -1,8 +1,14 @@
 //js to read html attribues
 let gcontext={};
 window.processData=function(p1,p2){
-    let {id,name,data}=gcontext;
-    console.log('in processData',p1,p2,id,name,data);
+    let {id,name,data,updateWithData}=gcontext;
+    data=JSON.parse(data)['data'];
+    console.log('in processData',p1,p2,id,name,updateWithData,data);
+    if(updateWithData==='true'){
+        let oldVal=document.getElementById(id).innerHTML+`<br/>`;
+        document.getElementById(id).innerHTML=oldVal+ data.map(x=>`<li>${x}</li>`).join('');
+        // document.getElementById(id).innerHTML=data   ;
+    }
 }
 
 let tags=document.getElementsByTagName('dpTag');
@@ -13,7 +19,8 @@ for(let i=0;i<tags.length;i++){
     let name=curTag.getAttribute('name');
     fnname=curTag.getAttribute('fn');
     let data=curTag.getAttribute('data');
-    gcontext={id,name,data};
+    let updateWithData=curTag.getAttribute('updateWithData');
+    gcontext={id,name,data,updateWithData};
     if(fnname===null) continue;
     let fn2execute=new Function(fnname);
     fn2execute();
