@@ -3,11 +3,11 @@ let global = {};
 global.getApiFunc = function (bnd, th, url,fld) {
     fld=fld||[];
     fld=fld.indexOf('~')!==-1 ? fld.split('~') :fld;
-    // console.log('fields set is ',fld);
+    document.getElementById(bnd+'_data').innerHTML='';
     let x = th.innerHTML;
     th.innerHTML = 'Loading Data, plz wait...';
     fetch(url).then(res => res.json()).then(res => {
-        document.getElementById(bnd).innerHTML =th+'<br/>'+ res.map(x => `<li>${x[fld[0]]} | ${x[fld[1]]}  | ${x[fld[2]]}</li>`).join('');
+        document.getElementById(bnd+'_data').innerHTML =res.map(x => `<li>${x[fld[0]]} | ${x[fld[1]]}  | ${x[fld[2]]}</li>`).join('');
         th.innerHTML = x;
     });
 }
@@ -15,17 +15,19 @@ window.processData = function (p1, p2) {
     // console.log('p1-p2',p1,p2);
     // console.log(gcontext);
     let {id, name, data, autopull, updateWithData, replaceWithApi} = gcontext;
+    let curElm=document.getElementById(id);
     let xdata=JSON.parse(data);
     data = xdata['data'];
-    fields=xdata['fields'];
+    let fields=xdata['fields'];
     let buttonPull = (autopull === 'false' && replaceWithApi !== null ) ? `<button onclick="global.getApiFunc('${id}',this,'${replaceWithApi}','${fields.join('~')}')">Fetch ${name}</button>` : '';
-    let oldVal = buttonPull + '<br/>' + document.getElementById(id).innerHTML + `<br/>`;
+    let oldVal = buttonPull + '<br/>' +curElm.innerHTML + `<br/>`;
     if (replaceWithApi !== null && autopull === 'false') {
-        document.getElementById(id).innerHTML = oldVal + `<br/>`;
+        curElm.insertAdjacentHTML('afterbegin',buttonPull);
+        // curElm.innerHTML = oldVal + `<br/>`;
     } else if (replaceWithApi !== null && autopull === 'true') {
         global.getApiFunc(id,this,replaceWithApi,fields);
     }  else {
-        document.getElementById(id).innerHTML = oldVal + (updateWithData==='true') ? data.map(x => `<li>${x}</li>`).join('') : '';
+        curElm.innerHTML = oldVal + (updateWithData==='true') ? data.map(x => `<li>${x}</li>`).join('') : '';
     }
 }
 
@@ -34,6 +36,8 @@ for (let i = 0; i < tags.length; i++) {
     // let attrs=curTag.getAttributeNames();
     let curTag = tags[i];
     let id = curTag.getAttribute('id');
+    curTag.insertAdjacentHTML('afterbegin',`<div id='${id+'_data'}' class="data_div"><h3>data goes here</h3></div>`);
+    // curTag.append(`<div id='${id+'_data'}'>data goes here</div>`);
     let name = curTag.getAttribute('name');
     let fnname = curTag.getAttribute('fn');
     let data = curTag.getAttribute('data');
