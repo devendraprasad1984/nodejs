@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        /* styles rely on the custom attribute "order-state" */
+        .order[order-state="new"] {
+            color: green;
+        }
+
+        .order[order-state="pending"] {
+            color: blue;
+        }
+
+        .order[order-state="canceled"] {
+            color: red;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- how a framework works like react / angular / vue . this below simple example will demonstrate how js frameworks are written-->
+    <test id='test' about='hello' data={a:1,b:2}>hello</test><br>
+    <test id='wonder' about='dp' data={a:3,b:4}>wonder</test><br>
+    <test id='tsfunc' about='func' data={a:9,b:10} func='return (d) => { console.log("dp string func call " + d) }'>test
+        function call</test><br>
+    <test id='oneF' about='func' data={a:20,b:21} func='run testF'>run direct functions written in js</test><br>
+    <test id='twoF' about='func' data={a:12,b:22} func='mycustFn'>call functions from stored in objects</test><br>
+    <div show-info="name"></div>
+    <div show-info="age"></div>
+
+    <div class="order" order-state="new">
+        A new order.
+    </div>
+    <div class="order" order-state="pending">
+        pending
+    </div>
+
+    <script>
+        let testF = 'return (xd) => { console.log("hey dp " + xd) }';
+        let dpFunc = {
+            mycustFn: (xd) => { console.log("hey dp functions objects " + xd) }
+        }
+        let els = document.getElementsByTagName('test');
+        let tf;
+        keysFunctions = Object.keys(dpFunc);
+        // console.log(els);    
+        for (let cur of els) {
+            // console.log(cur.hasAttribute('func'));
+            if (!cur.hasAttribute('func')) continue;
+            let data = cur.getAttribute('data');
+            let fn = cur.getAttribute('func');
+            //eval(func)(data);4
+            if(fn.indexOf('run')!==-1){
+                let newFn=fn.replace('run ','');
+                console.log('calling custom func',fn);
+                eval(newFn);
+            }else if (keysFunctions.indexOf(fn) !== -1) {
+                dpFunc[fn](data);
+            } else {
+                let ft = new Function(fn);
+                ft()(data);
+            }
+        }
+        let user = {
+            name: "Pete",
+            age: 25
+        };
+        for (let div of document.querySelectorAll('[show-info]')) {
+            let field = div.getAttribute('show-info');
+            div.innerHTML = user[field];
+        }
+        for (let div of document.querySelectorAll('.order')) {
+            let state = div.getAttribute('order-state');
+            console.log(state);
+            if (state !== 'new') continue;
+            setTimeout(() => {
+                div.innerHTML = 'canceled';
+                div.setAttribute('order-state', 'canceled');
+            }, 2000);
+        }
+    </script>
+</body>
+
+</html>

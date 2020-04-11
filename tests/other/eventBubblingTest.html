@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!--When an event happens on an element, it first runs the handlers on it, then on its parent, then all the way up on other ancestors.-->
+
+<div onclick="alert('The handler!')">
+    <h1><em>If you click on <code>EM</code>, the handler on <code>DIV</code> runs.</em></h1>
+</div>
+
+<form onclick="alert(this.tagName+'-'+event.target+'-form')">FORM
+    <div onclick="alert(this.tagName+'-'+event.target+'-div'); event.stopPropagation();">DIV
+        <p onclick="alert(this.tagName+'-'+event.target+'-p');event.stopImmediatePropagation();">P</p>
+    </div>
+</form>
+
+<div>test1</div>
+<div>test2</div>
+<div>test3</div>
+<div>test4</div>
+<div>test5</div>
+<div>
+    test5
+    <div>test5.1</div>
+    <div>test5.2</div>
+    <div>test5.3</div>
+</div>
+
+
+<script>
+    for (let elem of document.querySelectorAll('*')) {
+        // elem.addEventListener("click", e => alert(`Capturing: ${elem.tagName}`), true);
+        elem.addEventListener("click", e => alert(`Bubbling: ${elem.tagName}`));
+    }
+</script>
+
+</body>
+</html>

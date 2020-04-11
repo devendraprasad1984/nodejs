@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script>
+        function handleCellEvents(cellId){
+            var elm=document.getElementById("displayContentCell")
+            console.log(cellId)
+            var cellContent=document.getElementById(cellId).innerText
+            elm.innerHTML=cellContent+" Clicked"
+        }
+    </script>
+</head>
+<body>
+
+<table>
+    <tr>
+        <td><button id="cell1" onclick="handleCellEvents(this.id)">cell1</button></td>
+        <td><button id="cell2" onclick="handleCellEvents(this.id)">cell2</button></td>
+        <td><button id="cell3" onclick="handleCellEvents(this.id)">cell3</button></td>
+        <td><button id="cell4" onclick="handleCellEvents(this.id)">cell4</button></td>
+        <td><button id="cell5" onclick="handleCellEvents(this.id)">cell5</button></td>
+    </tr>
+</table>
+<div id="displayContentCell"></div>
+</body>
+</html>

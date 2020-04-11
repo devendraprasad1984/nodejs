@@ -1,0 +1,15 @@
+<div class="container">
+    <%- include('header'); -%>
+    <%- include('nav'); -%>
+    <h1>Hi, I am Groot...</h1>
+    <div><%= data.map(x => x) %></div>
+    <div><%= data.join(' | ') %></div>
+    <div>
+        <ul>
+            <%data.forEach(function(x){%>
+            <li><%=x%></li>
+            <%})%>
+        </ul>
+    </div>
+    <%- include('footer'); -%>
+</div>
