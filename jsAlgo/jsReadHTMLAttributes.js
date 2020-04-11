@@ -7,15 +7,17 @@ window.processData=function(p1,p2){
         data=JSON.parse(data)['data'];
         console.log('in processData',p1,p2,id,name,updateWithData,data,replaceWithApi);
         if(replaceWithApi!==null){
-            fetch(replaceWithApi).then((res)=>res.json()).then((res)=>{
-                console.log(res);
-                data=res;
-                document.getElementById(id).innerHTML=oldVal+ data.map(x=>`<li>${x.name} - ${x.email}</li>`).join('');
-            });
+            let getApiFunc=function(){
+                fetch(replaceWithApi).then((res)=>res.json()).then((res)=>{
+                    data=res;
+                    document.getElementById(id).innerHTML=oldVal+ data.map(x=>`<li>${x.name} - ${x.email}</li>`).join('');
+                });
+            }
+            getApiFunc();
+            // document.getElementById(id).innerHTML=oldVal+`<br/><button onclick="gcontext.getApiFunc()">Fetch Data</button>`;
         }else{
             document.getElementById(id).innerHTML=oldVal+ data.map(x=>`<li>${x}</li>`).join('');
         }
-        // document.getElementById(id).innerHTML=data   ;
     }
 }
 
