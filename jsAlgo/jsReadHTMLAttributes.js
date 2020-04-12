@@ -1,3 +1,5 @@
+'use strict'
+
 //js to read html attribues
 let global = {};
 global.getApiFunc = function (bnd, th, url,fld) {
@@ -46,7 +48,7 @@ for (let i = 0; i < tags.length; i++) {
     let replaceWithApi = curTag.getAttribute('replaceWithApi');
     let updateWithData = curTag.getAttribute('updateWithData') || 'false';
     let autopull = curTag.getAttribute('autopull') || 'false';
-    gcontext = {id, name, data, updateWithData, replaceWithApi, autopull};
+    let gcontext = {id, name, data, updateWithData, replaceWithApi, autopull};
     if (fnname === 'NA') continue;
     let fn2execute = new Function(fnname);
     fn2execute.apply(this, gcontext || []);//see html for static params and gcontext is for dynamic params binding
