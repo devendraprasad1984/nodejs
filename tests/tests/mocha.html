@@ -15,7 +15,7 @@
 <script>
     let {mocha,chai}=window;
     mocha.setup('bdd')
-    let assert=chai.assert;
+    let {assert,expect,should}=chai;
     describe('Array Test',function(){
         it('it should be empty',function(){
             let arr=[];
@@ -24,7 +24,8 @@
         const lte=(actual,max)=> (actual === max || actual && actual < max);
         it('it should be less than 10',function(){
             let arr=[1,2,3,4];
-            assert(lte(arr.length,10));
+            // assert(lte(arr.length,10));
+            expect(arr.length).to.be.not.least(10);
         });
     });
     mocha.run();
