@@ -3,9 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>mocha+chai test goes here</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/7.1.1/mocha.min.css" integrity="sha256-zX6KvfdhTfwaVsK5hogXY+wWW9Nf3wyloswn7WLZ9dg=" crossorigin="anonymous" />
 </head>
 <body>
 <h1>Test runner browser file</h1>
+
+<div id="mocha"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/7.1.1/mocha.min.js" integrity="sha256-I1+hwWT6Ltn0nj8IfPQVkzFC1Yk2I/mFTY/XznX/jII=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chai/4.2.0/chai.min.js" integrity="sha256-sMMA1cOFAFz/t0L4VJaaewaXG1CdvRf+habglhQFKbQ=" crossorigin="anonymous"></script>
+<script>
+    let {mocha,chai}=window;
+    mocha.setup('bdd')
+    let assert=chai.assert;
+    describe('Array Test',function(){
+        it('it should be empty',function(){
+            let arr=[];
+            assert.equal(arr.length,0);
+        });
+        const lte=(actual,max)=> (actual === max || actual && actual < max);
+        it('it should be less than 10',function(){
+            let arr=[1,2,3,4];
+            assert(lte(arr.length,10));
+        });
+    });
+    mocha.run();
+</script>
 
 </body>
 </html>
