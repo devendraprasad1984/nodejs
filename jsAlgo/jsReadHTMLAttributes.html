@@ -7,7 +7,7 @@
 </head>
 <style>
     body {
-        font-family: Tahoma, Geneva, sans-serif;
+        font-family: verdana;
     }
 
     button {
@@ -23,18 +23,17 @@
         background-color: black !important;
         border-radius: 6px;
         color: white;
-        border-radius: 6px;
     }
 
     .data_div {
         width: 100%;
         height: 300px;
         overflow: auto;
-        border: 2px solid #67b168;
+        border: 1px solid #66afe9;
     }
     .data_div li{
         padding:5px;
-        line-height: 1.2rem;
+        /*line-height: 1.2rem;*/
     }
 
     .column {
@@ -59,6 +58,14 @@
     h3 {
         color: lightgray;
     }
+    ::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #66afe9;
+    }
 
 </style>
 <body>
@@ -72,24 +79,21 @@
 
     <div class="column">
         <h1>Call from Posts</h1>
-        <dpTag id="idposts" name="Posts" data='{"data":[],"fields":["title","body","userId"]}'
-               replaceWithApi="https://jsonplaceholder.typicode.com/posts" fn="processData('dpx','prasx')"/>
+        <dpTag id="idposts" name="Posts" data='{"data":[],"fields":["title","body","userId"]}' replaceWithApi="https://jsonplaceholder.typicode.com/posts"/>
     </div>
 </div>
 
 <div class="row">
     <div class="column">
         <h1>Call from Album</h1>
-        <dpTag id="idAlbum" name="Albums" data='{"data":[]}' autopull="true"
-               replaceWithApi="https://jsonplaceholder.typicode.com/albums" fn="processData('albumA','albumX')"/>
+        <dpTag id="idAlbum" name="Albums" data='{"data":[]}' autopull="true" replaceWithApi="https://jsonplaceholder.typicode.com/albums" />
     </div>
 </div>
 
 <div class="row">
     <div class="column">
         <h1>Call from local data array</h1>
-        <dpTag id="id2" name="p_10_50" data='{"data":[10,20,30,40,50]}' fn="processData('kuamr','ravi')"
-               updateWithData="true"/>
+        <dpTag id="id2" name="p_10_50" data='{"data":[10,20,30,40,50]}' updateWithData="true"/>
     </div>
 </div>
 

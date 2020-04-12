@@ -41,13 +41,13 @@ for (let i = 0; i < tags.length; i++) {
     curTag.insertAdjacentHTML('afterbegin',`<div id='${id+'_data'}' class="data_div"><h3>data goes here</h3></div>`);
     // curTag.append(`<div id='${id+'_data'}'>data goes here</div>`);
     let name = curTag.getAttribute('name');
-    let fnname = curTag.getAttribute('fn');
-    let data = curTag.getAttribute('data');
+    let fnname = curTag.getAttribute('fn')||'processData()';
+    let data = curTag.getAttribute('data')||'{"data":[],"fields":[]}';
     let replaceWithApi = curTag.getAttribute('replaceWithApi');
     let updateWithData = curTag.getAttribute('updateWithData') || 'false';
     let autopull = curTag.getAttribute('autopull') || 'false';
     gcontext = {id, name, data, updateWithData, replaceWithApi, autopull};
-    if (fnname === null) continue;
+    if (fnname === 'NA') continue;
     let fn2execute = new Function(fnname);
     fn2execute.apply(this, gcontext || []);//see html for static params and gcontext is for dynamic params binding
     // window[fnnamex[0]].apply(params,data);
