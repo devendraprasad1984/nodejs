@@ -7,7 +7,9 @@ global.getApiFunc = function (bnd, th, url,fld) {
     let x = th.innerHTML;
     th.innerHTML = 'Loading Data, plz wait...';
     fetch(url).then(res => res.json()).then(res => {
-        document.getElementById(bnd+'_data').innerHTML =res.map(x => `<li>${x[fld[0]]} | ${x[fld[1]]}  | ${x[fld[2]]}</li>`).join('');
+        let allFields=Object.keys(res[0]); //if field is not define, display all fields
+        fld= (fld.length===0 ? allFields : fld);
+        document.getElementById(bnd+'_data').innerHTML =res.map(x => `<li>${fld.map(f=>x[f]).join(' | ')}</li>`).join('');
         th.innerHTML = x;
     });
 }
