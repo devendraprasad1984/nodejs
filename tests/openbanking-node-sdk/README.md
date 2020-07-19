@@ -1,4 +1,16 @@
-# Sandbox example app
+# Sandbox example app - Cyber Renderer gtihub: dpcyberr
+### RBS Open Banking Hackathon July 2020
+
+####demo app is here
+app with static resources: https://dpresume.com/nuv/
+https://dpresume.com/nuv/resources/demo.webm
+
+##at local, these endpoints are used for the customer: 231490383323
+http://localhost:6200/api/cust
+http://localhost:6200/api/accounts
+http://localhost:6200/api/transactions/*/b048e556-e550-43d2-9881-b33b7809f76f
+http://localhost:6200/api/transactions/*/fef7dc2d-0cf3-44e3-a115-3ff4c66248a9
+
 
 ## Preliminary steps
 
@@ -17,6 +29,9 @@
 	2. Enter the Domain from the Team Information section of your team's page ([dashboard](https://developer.rbs.useinfinite.io/dashboard) -> demo-team-... -> Team Information)
 	3. Enter the customerNumber '0123456789012'. (The preloaded data in the sandbox comes with a customer with this number).
 4. Run `npm start` to authenticate and fetch user accounts (see [Running the app](#running-the-app))
+##5. run `npm run startx` to run via nodemon that will have hot reload
+
+
 
 ## Running the app
 
