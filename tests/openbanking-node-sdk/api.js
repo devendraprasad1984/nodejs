@@ -132,9 +132,10 @@ async function getAccounts(accessToken) {
 }
 
 
-async function getTransactions(accessToken, accountId, page) {
+async function getTransactions(accessToken,page,accountId) {
+	// uri: 'https://ob.rbs.useinfinite.io/open-banking/v3.1/aisp/accounts/'+accountId+'/transactions?page='+page,
 	const response = await request({
-		uri: 'https://ob.rbs.useinfinite.io/open-banking/v3.1/aisp/accounts/'+accountId+'/transactions/page='+page,
+		uri: 'https://ob.rbs.useinfinite.io/open-banking/v3.1/aisp/accounts/'+accountId+'/transactions'+(page==='*'?'':'?page='+page),
 		method: 'GET',
 		headers: {
 			Authorization: `Bearer ${accessToken}`,
