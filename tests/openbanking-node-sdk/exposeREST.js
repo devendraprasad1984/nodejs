@@ -1,5 +1,5 @@
 const express = require('express');
-const {getAccounts, getTransactions} = require('./api');
+const {getAccounts, getTransactions, getBalances, getProduct, getDirectDebits} = require('./api');
 const ConfigError = require('./config-error');
 const config = require('./config.json');
 const {generateMoratorium, generateOffers, generateSummary, generateTop5, generateInsight} = require('./narrativeInsights');
@@ -44,8 +44,49 @@ app.get('/api/offers', async (req, res) => {
 
 app.get('/api/transactions/:page/:accountId', async (req, res) => {
     try {
-        console.log('auth token from ob api', authToken, req.params);
+        console.log('getting transactions', authToken, req.params);
         const transactions = await getTransactions(authToken, req.params.page, req.params.accountId);
+        // console.log('accounts are', transactions);
+        res.send(transactions);
+    } catch (error) {
+        if (error instanceof ConfigError)
+            console.log('Configuration error: ', error.message);
+        else
+            throw error;
+    }
+});
+app.get('/api/balances/:accountId', async (req, res) => {
+    try {
+        console.log('getting balances', authToken, req.params);
+        const transactions = await getBalances(authToken, req.params.accountId);
+        // console.log('accounts are', transactions);
+        res.send(transactions);
+    } catch (error) {
+        if (error instanceof ConfigError)
+            console.log('Configuration error: ', error.message);
+        else
+            throw error;
+    }
+});
+
+app.get('/api/product/:accountId', async (req, res) => {
+    try {
+        console.log('getting product', authToken, req.params);
+        const transactions = await getProduct(authToken, req.params.accountId);
+        // console.log('accounts are', transactions);
+        res.send(transactions);
+    } catch (error) {
+        if (error instanceof ConfigError)
+            console.log('Configuration error: ', error.message);
+        else
+            throw error;
+    }
+});
+
+app.get('/api/direct-debits/:accountId', async (req, res) => {
+    try {
+        console.log('getting direct debits', authToken, req.params);
+        const transactions = await getDirectDebits(authToken, req.params.accountId);
         // console.log('accounts are', transactions);
         res.send(transactions);
     } catch (error) {
@@ -58,9 +99,11 @@ app.get('/api/transactions/:page/:accountId', async (req, res) => {
 
 app.get('/api/insight/:accountId', async (req, res) => {
     try {
+        console.log('getting transaction insights', authToken, req.params);
         let accTransId = req.params.accountId;
         const transactions = await getTransactions(authToken, '*', accTransId);
-        res.send(generateInsight(transactions,accTransId));
+        const balances = await getBalances(authToken, accTransId);
+        res.send(generateInsight(transactions,balances, accTransId));
     } catch (error) {
         if (error instanceof ConfigError)
             console.log('Configuration error: ', error.message);

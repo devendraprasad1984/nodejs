@@ -5,6 +5,7 @@ const request = require('request-promise-native').defaults({
 	json: true,
 	proxy: config.proxy
 });
+const accountPrefixUri='https://ob.rbs.useinfinite.io/open-banking/v3.1/aisp/';
 
 async function retrieveAccessToken(authorisationCode = null) {
 	try {
@@ -37,7 +38,7 @@ async function retrieveAccessToken(authorisationCode = null) {
 
 async function createAccountAccessConsent(accessToken) {
 	const response = await request({
-		uri: 'https://ob.rbs.useinfinite.io/open-banking/v3.1/aisp/account-access-consents',
+		uri: accountPrefixUri+'account-access-consents',
 		method: 'POST',
 		headers: {
 			Authorization: `Bearer ${accessToken}`,
@@ -120,7 +121,7 @@ function getAuthorisationCode(redirectUri) {
 
 async function getAccounts(accessToken) {
 	const response = await request({
-		uri: 'https://ob.rbs.useinfinite.io/open-banking/v3.1/aisp/accounts',
+		uri: accountPrefixUri+'accounts',
 		method: 'GET',
 		headers: {
 			Authorization: `Bearer ${accessToken}`,
@@ -131,11 +132,49 @@ async function getAccounts(accessToken) {
 	return response;
 }
 
+async function getBalances(accessToken,accountId) {
+	const response = await request({
+		uri: accountPrefixUri+'accounts/'+accountId+'/balances',
+		method: 'GET',
+		headers: {
+			Authorization: `Bearer ${accessToken}`,
+			'x-fapi-financial-id': config.financeId
+		}
+	});
+
+	return response;
+}
+
+async function getProduct(accessToken,accountId) {
+	const response = await request({
+		uri: accountPrefixUri+'accounts/'+accountId+'/product',
+		method: 'GET',
+		headers: {
+			Authorization: `Bearer ${accessToken}`,
+			'x-fapi-financial-id': config.financeId
+		}
+	});
+
+	return response;
+}
+
+async function getDirectDebits(accessToken,accountId) {
+	const response = await request({
+		uri: accountPrefixUri+'accounts/'+accountId+'/direct-debits',
+		method: 'GET',
+		headers: {
+			Authorization: `Bearer ${accessToken}`,
+			'x-fapi-financial-id': config.financeId
+		}
+	});
+
+	return response;
+}
 
 async function getTransactions(accessToken,page,accountId) {
-	// uri: 'https://ob.rbs.useinfinite.io/open-banking/v3.1/aisp/accounts/'+accountId+'/transactions?page='+page,
+	// uri: accountPrefixUri+'accounts/'+accountId+'/transactions?page='+page,
 	const response = await request({
-		uri: 'https://ob.rbs.useinfinite.io/open-banking/v3.1/aisp/accounts/'+accountId+'/transactions'+(page==='*'?'':'?page='+page),
+		uri: accountPrefixUri+'accounts/'+accountId+'/transactions'+(page==='*'?'':'?page='+page),
 		method: 'GET',
 		headers: {
 			Authorization: `Bearer ${accessToken}`,
@@ -152,5 +191,8 @@ module.exports = {
 	authoriseProgramatically,
 	authoriseManually,
 	getAccounts,
-	getTransactions
+	getTransactions,
+	getBalances,
+	getProduct,
+	getDirectDebits
 };

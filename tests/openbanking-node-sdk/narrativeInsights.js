@@ -39,7 +39,7 @@ function generateOffers() {
     return mainStr.join('');
 }
 
-function generateInsight(transactions,accTransId){
+function generateInsight(transactions,balances,accTransId){
     let transactionsOnly = transactions['Data']['Transaction'];
     let transSubset = [];
     for (let trow in transactionsOnly) {
@@ -58,8 +58,12 @@ function generateInsight(transactions,accTransId){
     let maxCredit = getMinMaxObject(allCredits).max;
     let maxDebit = getMinMaxObject(allDebits).max;
     console.log('MAX', maxCredit, maxDebit)
+    let balanceAmt=balances.Data.Balance[0].Amount.Amount;
+    let balanceCurrency=balances.Data.Balance[0].Amount.Currency;
     let mainStr = [];
     mainStr.push('<div>Welcome Mr Prasad,</div>');
+    if(typeof balances!=='undefined')
+        mainStr.push('<div>Your current account balance is <span class="bgpurple">'+balanceAmt+balanceCurrency+'</span></div>');
     mainStr.push('<div>You have received ' + maxCredit.info + ' on ' + maxCredit.date + ' as sum of <span class="bggreen"> ' + symbols.inr + maxCredit.amt + '</span> and spent <span class="bgred"> ' + symbols.inr + maxDebit.amt + '</span> on ' + maxDebit.info + ' dated ' + maxDebit.date + '</div>');
     return mainStr.join('');
 }
