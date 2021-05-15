@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsc && nodemon index.js",
+    "start": "tsc && node main.js",
+    "xx1": "tsc && nodemon --es-module-specifier-resolution=node index.js",
     "xx": "nodemon --es-module-specifier-resolution=node index.js",
     "typeorm": "./node_modules/.bin/typeorm"
   },
@@ -17,5 +18,9 @@
     "pg": "^8.6.0",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.2.32"
+  },
+  "devDependencies": {
+    "@types/node": "^15.3.0",
+    "typescript": "^4.2.4"
   }
 }
