@@ -2,11 +2,10 @@
   "name": "ts-node-postgres-orm-api",
   "version": "1.0.0",
   "description": "",
-  "type": "module",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsc && node main.js",
+    "start": "tsc && nodemon main.js",
     "xx1": "tsc && nodemon --es-module-specifier-resolution=node index.js",
     "xx": "nodemon --es-module-specifier-resolution=node index.js",
     "typeorm": "./node_modules/.bin/typeorm"
