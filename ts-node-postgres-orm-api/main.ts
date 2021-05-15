@@ -1,7 +1,7 @@
 import {createConnection} from "typeorm";
 import {Post} from "./entity/post";
 import {Category} from "./entity/category";
-import express from 'express'
+import * as express from 'express'
 import {Routes} from "./routes";
 
 // connection settings are in the "ormconfig.json" file
