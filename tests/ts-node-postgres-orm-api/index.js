@@ -2,18 +2,19 @@ var express = require('express');
 var app = express();
 var fs = require("fs");
 var {Column, Entity} = require('typeorm')
-var {Client}=require('pg')
+var {Client} = require('pg')
 
-const dbClient = new Client({
-    user: 'dpadmin',
-    host: 'localhost',
-    database: 'postgres',
-    password: 'admin',
-    port: 5432,
-});
-
-const handleError=(res, err)=>{
-    if(err) {
+const initDB = () => {
+    return new Client({
+        user: 'dpadmin',
+        host: 'localhost',
+        database: 'postgres',
+        password: 'admin',
+        port: 5432,
+    });
+}
+const handleError = (res, err) => {
+    if (err) {
         console.log(err)
         dbClient.end()
         res.end(JSON.stringify(err))
@@ -40,15 +41,19 @@ app.get('/users/:id', function (req, res) {
     });
 })
 
-app.get('/getUserFromDB',function(req,res){
-    let result=[]
-    let sql='select * from test'
-    dbClient.connect()
-    dbClient.query(sql,(err,data)=>{
-        if(handleError(res, err)) return
-        result=data.rows||[]
-        dbClient.end()
+app.get('/getUserFromDB', function (req, res) {
+    let result = []
+    let sql = 'select * from test'
+    let db = initDB()
+    db.connect()
+    db.query(sql).then(data => {
+        result = data.rows || []
+        if (db) db.end()
         res.end(JSON.stringify(result))
+    }).catch(err => {
+        if (handleError(res, err)) return
+    }).finally(() => {
+        if (db) db.end()
     })
 })
 
