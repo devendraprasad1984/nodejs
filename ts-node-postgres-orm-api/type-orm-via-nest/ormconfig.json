@@ -1,0 +1,19 @@
+{
+  "type": "postgres",
+  "host": "localhost",
+  "port": 5432,
+  "username": "dpadmin",
+  "password": "admin",
+  "database": "postgres",
+  "synchronize": false,
+  "logging": false,
+  "entities": [
+    "dist/**/*.entity.js"
+  ],
+  "migrations": [
+    "migration/**/*.js"
+  ],
+  "subscribers": [
+    "subscriber/**/*.js"
+  ]
+}
