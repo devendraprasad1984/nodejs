@@ -6,7 +6,7 @@
 import express from 'express'
 import cors from 'cors'
 import GraphHTTP from 'express-graphql';
-import Schema from "./schemaDef";
+import Schema from "./schema";
 
 const app = express();
 const PORT = 6969;
