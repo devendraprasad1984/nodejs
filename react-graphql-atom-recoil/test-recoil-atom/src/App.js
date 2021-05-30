@@ -5,6 +5,7 @@ import {ApolloProvider, InMemoryCache, ApolloClient, from, HttpLink} from '@apol
 import {onError} from '@apollo/client/link/error'
 import CounterValue from "./components/counterVal";
 import GetUsers from "./components/GetUsers";
+import GetDogs from "./components/GetDogs";
 
 
 const errorLink=onError(({graphqlErrors, networkError})=>{
@@ -31,8 +32,10 @@ function App() {
             <RecoilRoot>
                 <Counter/>
                 <CounterValue/>
-                <h1>getting users from graphql</h1>
+                <h3>getting users from graphql</h3>
                 <GetUsers/>
+                <h3>getting dogs from graphql</h3>
+                <GetDogs/>
             </RecoilRoot>
         </ApolloProvider>
     </div>

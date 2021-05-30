@@ -5,3 +5,9 @@ export const LOAD_USERS = gql`
     getAllUsers {id,firstName,lastName,email,password}
   }
 `;
+
+export const GET_ALL_DOGS = gql`
+  query {
+    getDogs {id,name,age,breed}
+  }
+`;
