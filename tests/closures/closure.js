@@ -63,12 +63,9 @@ for (var j = 0; j < 3; j++) {
 }
 console.log('after the var loop - closure and context problem')
 for (var j = 0; j < 3; j++) {
-    ((i)=>setTimeout(() => console.log(i),1000))(j)
+    ((i)=>setTimeout(() => console.log(i),1000))(j) //iife
 }
 console.log('after the 2 var loop - closure and context problem')
-
-
-
 
 
 
