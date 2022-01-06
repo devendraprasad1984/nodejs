@@ -114,11 +114,11 @@ function television(brand, size, price, num) {
 
 function sell(quantity) {
     if (quantity > this.num)
-        alert("Not enough " + this.brand + " " + this.size + "\" sets in stock.")
+        console.log("Not enough " + this.brand + " " + this.size + "\" sets in stock.")
     else
         this.num -= quantity
     if (quantity < 5)
-        alert("Order more " + this.brand + " " + this.size + "\" sets urgently.")
+        console.log("Order more " + this.brand + " " + this.size + "\" sets urgently.")
 }
 
 function buy(quantity) {
@@ -133,7 +133,8 @@ function display() {
     result += "<TD WIDTH = 45>$" + this.price + "</TD>"
     result += "<TD WIDTH = 45>" + this.num + " left</TD>"
     result += "</TR></TABLE>"
-    document.write(result)
+    console.log(result)
+    // document.write(result)
 }
 
 var tel1 = new television("Sony", 27, 1200, 30)
@@ -146,3 +147,36 @@ tel2.sell(21)
 tel2.sell(1)
 tel2.display()
 tel3.display()
+
+
+//ancient way to create arrays back in 90s when array wasnt part of js
+function createArray(n, init) {
+    this.length = n
+    for (i = 1; i <= n; i++) {
+        this[i] = init
+    }
+    return this
+}
+
+// console.log(createArray(10, 0))
+
+Array.prototype.grep = function (str) {
+    let arr = []
+    for (let i in this) {
+        if (typeof this[i] === "string" && this[i].indexOf(str) !== -1) {
+            arr.push(this[i])
+        }
+    }
+    return arr
+}
+let arr = ['abc', 'mask', 'master']
+console.log(arr.shift(), arr.splice(1, 2, 'named', 'deven', 'master'), arr)
+console.log(arr.slice(1, 3), arr)
+console.log(arr.grep('mas').join(', '))
+
+let arrMulti = []
+for (let i = 0; i < 5; i++) {
+    arrMulti[i]=[]
+    arrMulti[i].push(0,1,2)
+}
+console.log(arrMulti)
