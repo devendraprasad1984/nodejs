@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, BrowserRouter as Router, Route } from 'react-router-dom';
+import { Switch, BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Home from './Home';
 import DynamicPage from './DynamicPage';
@@ -9,11 +9,11 @@ const App = () => {
     return (
         <Router>
             <div>
-                <Routes>
+                <Switch>
                     <Route exact path="/" component={Home} />
-                    <Route exact path="/dynamic" component={DynamicPage} />
+                    <Route path="/dynamic" component={DynamicPage} />
                     <Route component={NoMatch} />
-                </Routes>
+                </Switch>
             </div>
         </Router>
     );
