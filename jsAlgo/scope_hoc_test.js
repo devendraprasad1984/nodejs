@@ -259,3 +259,111 @@ function speak(line) {
 let whiteRabbit = {type: 'white', speak}
 let hungryRabbit = {type: 'hungry', speak}
 console.log(whiteRabbit.speak('ohh i am white'), hungryRabbit.speak('ohh i am hungry'))
+console.log(speak.call(whiteRabbit, 'Burp!'))
+
+
+function normalize() {
+    const {coords, length} = this
+    console.log(coords.map(n => n / length));
+}
+
+normalize.call({coords: [0, 2, 3], length: 5});
+
+
+console.log({}.toString())
+console.log(Object.prototype, Object.getPrototypeOf({}), Object.prototype === Object.getPrototypeOf({}))
+console.log(Array.prototype, Object.getPrototypeOf([]))
+
+
+let protoRabbit = {
+    speak(line) {
+        console.log(`The ${this.type} rabbit says '${line}'`);
+    },
+    eat(food) {
+        console.log(`rabbit has eaten ${food}`)
+    }
+}
+let killerRabbit = Object.create(protoRabbit)
+killerRabbit.type = "killer"
+killerRabbit.speak("SKREEEE!")
+console.log(Object.getPrototypeOf(killerRabbit))
+
+//class prototype inheritence
+function Rabbit(type) {
+    this.type = type;
+
+    this.eat = function () {
+        console.log('i have eaten ' + this.type)
+    }//function as value of object
+}
+
+Rabbit.prototype.speak = function (line) {
+    console.log(`The ${this.type} rabbit says '${line}'`);
+};
+let weirdRabbit = new Rabbit("weird")
+let healthyRabbit = new Rabbit("healthy")
+weirdRabbit.speak('hi')
+weirdRabbit.eat()
+healthyRabbit.speak('i am healthy')
+healthyRabbit.eat()
+
+
+//after 2015, class creation
+class Rabbit1 {
+    constructor(type) {
+        this.type = type;
+    }
+
+    speak(line) {
+        console.log(`The ${this.type} rabbit says '${line}'`);
+    }
+}
+
+let killerRabbitObj = new Rabbit1("killer");
+let blackRabbitObj = new Rabbit1("black");
+killerRabbitObj.speak('hi')
+blackRabbitObj.speak('hi')
+
+//class expression, omit name
+let object = new class {
+    getWord() {
+        return "hello, i am expression class";
+    }
+};
+console.log(object.getWord());
+
+
+console.log("toString" in Object.create({}));
+console.log("toString" in Object.create(null));
+
+
+let ages = new Map(); //prototype is not associated
+ages.set("Boris", 39);
+ages.set("Liang", 22);
+ages.set("Júlia", 62);
+console.log(`Júlia is ${ages.get("Júlia")}`);
+console.log("Is Jack's age known?", ages.has("Jack"));
+console.log("Is Boris's age known?", ages.has("Boris"));
+console.log(ages.has("toString"));
+
+console.log({x: 1}.hasOwnProperty("x"));
+// → true
+console.log({x: 1}.hasOwnProperty("toString")); // → false
+
+Rabbit.prototype.toString = function () {
+    return `a ${this.type} rabbit from toString Polymorphic`
+}
+console.log(String(whiteRabbit), whiteRabbit.toString(), weirdRabbit.toString())
+
+
+const toStringSymbol = Symbol("toString");
+Array.prototype[toStringSymbol] = function () {
+    return `${this.length} cm of blue yarn`;
+};
+console.log([1, 2].toString());
+// → 1,2
+console.log([1, 2][toStringSymbol]()); // → 2 cm of blue yarn
+
+
+
+
