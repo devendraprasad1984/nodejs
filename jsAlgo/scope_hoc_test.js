@@ -364,6 +364,11 @@ console.log([1, 2].toString());
 // → 1,2
 console.log([1, 2][toStringSymbol]()); // → 2 cm of blue yarn
 
+//Symbol.Iterator
+let okIterator = "OK"[Symbol.iterator]();
+console.log(okIterator.next());// → {value: "O", done: false}
+console.log(okIterator.next()); // → {value: "K", done: false}
+console.log(okIterator.next()); // → {value: undefined, done: true}
 
 
-
+//create matrix Iterator
