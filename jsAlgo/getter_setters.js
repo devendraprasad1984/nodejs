@@ -28,7 +28,10 @@ class Temperature {
 }
 
 let temp = new Temperature(22);
+console.log(Object.getPrototypeOf(temp))
 console.log('fahrenheit from getter', temp.fahrenheit); //getter is called
 temp.fahrenheit = 86; //setter is called
 console.log('celsius from setter', temp.celsius);
+Temperature.fromFahrenheit(100)
+console.log('fahrenheit from getter --100', temp.fahrenheit, temp.celsius); //getter is called
 

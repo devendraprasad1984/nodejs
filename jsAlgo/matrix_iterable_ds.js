@@ -50,4 +50,23 @@ for (let {x, y, value} of matrix) {
 }
 
 
+//inheritence
+class SymmetricMatrix extends Matrix {
+    constructor(size, element) {
+        super(size, size, (x, y) => {
+            if (x < y) return element(y, x)
+            else return element(x, y)
+        });
+    }
 
+    //overriding from parent
+    set(x, y, value) {
+        super.set(x, y, value)
+        if (x != y) {
+            super.set(y, x, value)
+        }
+    }
+}
+
+let newMatrix = new SymmetricMatrix(5, (x, y) => `${x} - ${y}`)
+console.log(newMatrix.get(1, 2))
