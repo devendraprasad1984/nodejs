@@ -227,8 +227,35 @@ let words = "The characterCount function reduces the ranges assigned to a script
 console.log(words)
 let res = words.reduce((a, b) => {
     console.log(a, b)
-    return a.length>b.length ? a: b
+    return a.length > b.length ? a : b
 }, '')
 console.log(res)
 res = [1, 2, 3, 4, 5].reduce((a, b) => a + b, 0)
 console.log(res)
+
+
+let horseShoe = "🐴👟";
+console.log(horseShoe.length);
+console.log(horseShoe[0]);
+// → (Invalid half-character)
+console.log(horseShoe.charCodeAt(0));
+// → 55357 (Code of the half-character)
+console.log(horseShoe.codePointAt(0));
+// → 128052 (Actual code for horse emoji)
+
+let roseDragon = "🌹🐉";
+for (let char of roseDragon) {
+    console.log(char);
+}
+
+//nullish
+console.log(undefined ?? 0, null ?? 0, null ?? 'default')
+
+
+function speak(line) {
+    return `the ${this.type} rabbit says, ${line}`
+}
+
+let whiteRabbit = {type: 'white', speak}
+let hungryRabbit = {type: 'hungry', speak}
+console.log(whiteRabbit.speak('ohh i am white'), hungryRabbit.speak('ohh i am hungry'))
