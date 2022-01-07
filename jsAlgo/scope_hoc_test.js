@@ -176,7 +176,59 @@ console.log(arr.grep('mas').join(', '))
 
 let arrMulti = []
 for (let i = 0; i < 5; i++) {
-    arrMulti[i]=[]
-    arrMulti[i].push(0,1,2)
+    arrMulti[i] = []
+    arrMulti[i].push(0, 1, 2)
 }
 console.log(arrMulti)
+
+let now = new Date()
+console.log(now, now.getDate(), now.getTime(), now.getHours(), now.getMinutes())
+
+let kim = 'kim'
+kim.age = 40
+console.log(kim, kim.age)
+
+let coconut = 'coconut'
+console.log(coconut.slice(3, 6), coconut.indexOf('u'))
+console.log(String(6).padStart(3, "0"));
+
+
+function test_vars() {
+    var v1 = 10, v2 = 20
+    let v3 = 10, v4 = 20
+    console.log(v1, v2, v3, v4)
+}
+
+test_vars()
+
+
+//HOC
+function greaterThan(n) {
+    return m => m > n;
+}
+
+let greaterThan10 = greaterThan(10);
+console.log(greaterThan10(11));
+// → true
+
+// And we can have functions that change other functions.
+function noisy(f) {
+    return (...args) => {
+        console.log("calling with", args);
+        let result = f(...args);
+        console.log("called with", args, ", returned", result);
+        return result;
+    };
+}
+
+noisy(Math.min)(3, 2, 1)
+
+let words = "The characterCount function reduces the ranges assigned to a script by sum- ming their sizes".split(' ')
+console.log(words)
+let res = words.reduce((a, b) => {
+    console.log(a, b)
+    return a.length>b.length ? a: b
+}, '')
+console.log(res)
+res = [1, 2, 3, 4, 5].reduce((a, b) => a + b, 0)
+console.log(res)
