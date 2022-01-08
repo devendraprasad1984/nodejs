@@ -100,17 +100,168 @@ function test7() {
 }
 
 function test8() {
-    var arr1 = "john".split(''); //[j,o,h,n]
+    var arr1 = "john".split(''); //[j,o,h,n], 2nd call [n,h,o,j]
     var arr2 = arr1.reverse(); //[n,h,o,j]
     var arr3 = "jones".split(''); //[j,o,n,e,s]
     arr2.push(arr3); //[n,h,o,j,[j,o,n,e,s]]
+    //arr1, arr2 references are same, so arr2 push happens to arr1 also
     console.log(arr1, arr2)
     console.log("array 1: length=" + arr1.length + " last=" + arr1.slice(-1)); //4, jones
     console.log("array 2: length=" + arr2.length + " last=" + arr2.slice(-1)); //9, jones
 }
 
-test8()
+function test9() {
+    console.log(1 + "2" + "2"); //122
+    console.log(1 + +"2" + "2"); //32
+    console.log(1 + -"1" + "2"); //02
+    console.log(+"1" + "1" + "2"); //112
+    console.log("A" - "B" + "2"); //NaN2
+    console.log("A" - "B" + 2); //NaN
+}
+
+function test10() {
+    console.log("0 || 1 = " + (0 || 1));
+    console.log("1 || 2 = " + (1 || 2));
+    console.log("0 && 1 = " + (0 && 1));
+    console.log("1 && 2 = " + (1 && 2));
+}
+
+function test11() {
+    var a = {},
+        b = {key: 'b'},
+        c = {key: 'c'};
+
+    a[b] = 123;
+    a[c] = 456;
+
+    console.log(a[b]);
+    //JavaScript will implicitly stringify the parameter value. In this case, since b and c are both objects, they will both be converted to "[object Object]". As a result, a[b] anda[c] are both equivalent to a["[object Object]"] and can be used interchangeably. Therefore, setting or referencing a[c] is precisely the same as setting or referencing a[b]
+}
 
 
+function test12() {
+    (function (x) {
+        return (function (y) {
+            console.log(x);
+        })(2)
+    })(1);
+} //1
 
+function test13() {
+    console.log((function f(n) {
+        return ((n > 1) ? n * f(n - 1) : n)
+    })(10));
+}
+
+function test14() {
+    var hero = {
+        _name: 'John Doe',
+        getSecretIdentity: function () {
+            return this._name;
+        }
+    };
+
+    var stoleSecretIdentity = hero.getSecretIdentity;
+
+    console.log(stoleSecretIdentity());
+    console.log(hero.getSecretIdentity());
+} //undefine, john doe
+
+function test15() {
+    //Create a function that, given a DOM Element on the page, will visit the element itself and all of its descendents (not just its immediate children). For each element visited, the function should pass that element to a provided callback function. The arguments to the function should be:
+    // a DOM element
+    // a callback function (that takes a DOM element as its argument)
+
+    //Visiting all elements in a tree (DOM) is a classic Depth-First-Search algorithm application. Here’s an example solution:
+    function Traverse(p_element, p_callback) {
+        p_callback(p_element);
+        var list = p_element.children;
+        for (var i = 0; i < list.length; i++) {
+            Traverse(list[i], p_callback);  // recursive call
+        }
+    }
+}
+
+
+function test16() {
+    var length = 10;
+
+    function fn() {
+        console.log(this.length);
+    }
+
+    var obj = {
+        length: 5,
+        method: function (fn) {
+            fn();
+            arguments[0]();
+        }
+    };
+
+    obj.method(fn, 1);
+} //5.length=1, 10.length=2
+
+function test17() {
+    (function () {
+        try {
+            throw new Error();
+        } catch (x) {
+            var x = 1, y = 2;
+            console.log(x);
+        }
+        console.log(x);
+        console.log(y);
+    })();
+} //1, undefined, 2
+
+function test18() {
+    var x = 21;
+    var girl = function () {
+        console.log(x);
+        var x = 20;
+    };
+    girl();
+} //undefined, vars move up but not the initialisation
+
+function test19() {
+    for (let i = 0; i < 5; i++) {
+        setTimeout(function () {
+            console.log(i);
+        }, i * 1000);
+    }
+} //let is used here, 0,1,2,3,4
+
+function test20() {
+    console.log(1 < 2 < 3);
+    console.log(3 > 2 > 1);
+} //true, false
+
+function test21() {
+    for (var i = 0; i < 5; i++) {
+        setTimeout(function () {
+            console.log(i);
+        }, i * 1000);
+    }
+
+    //by closure, we can fix this by binding context of i to new funtion call
+    for (var i = 0; i < 5; i++) {
+        (function (i) {
+            setTimeout(function () {
+                console.log(i);
+            }, i * 1000);
+        })(i)
+    }
+}
+
+function test22() {
+    var obj = {a: 1, b: 2, c: {age: 20}}
+    var objShallow = Object.assign({}, obj) //shallow copy
+    var objDeep = JSON.parse(JSON.stringify(obj)) //deep copy
+    console.log(obj, objShallow, objDeep)
+    obj.a = 10
+    obj.c.age = 30
+    console.log(obj, objShallow, objDeep)
+}
+
+test22()
 
