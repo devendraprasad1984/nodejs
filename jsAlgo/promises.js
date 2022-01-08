@@ -30,10 +30,23 @@ let btn1 = buttonClick().then(success => {
 new Promise((_, reject) => {
     return reject(new Error("failed rejection as returned"))
 })
-.then(value => console.log("Handler 1", value))
-.catch(reason => {
-    console.log("Caught failure " + reason);
-    return "nothing";
+    .then(value => console.log("Handler 1", value))
+    .catch(reason => {
+        console.log("Caught failure " + reason);
+        return "nothing";
+    })
+    .then(value => console.log("Handler 2", value));
+
+
+//promise.all, when all promises resolve
+let p1 = Promise.resolve('promise 1 resolving')
+let p2 = Promise.resolve('promise 2 resolving')
+let p3 = 200
+let p4 = new Promise((res, rej) => {
+    setTimeout(res('promise 4 resolving'), 1000, 'dummy promise 4 value')
 })
-.then(value => console.log("Handler 2", value));
+
+Promise.all([p1, p2, p3, p4]).then(values => {
+    console.log('from all promises', values)
+}).catch(e => console.log('one or many promises failing'))
 
