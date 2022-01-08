@@ -74,9 +74,43 @@ function test6() {
         }
     }
 
+    function sum2(x, y) {
+        if (y !== undefined) {
+            return x + y;
+        } else {
+            return function (y) {
+                return x + y;
+            };
+        }
+    }
+
     console.log(sum(2, 4))
     console.log(sum(2)(4))
 }
+
+function test7() {
+    for (var i = 0; i < 5; i++) {
+        var btn = document.createElement('button');
+        btn.appendChild(document.createTextNode('Button ' + i));
+        btn.addEventListener('click', function () {
+            console.log(i);
+        });
+        document.body.appendChild(btn);
+    }
+}
+
+function test8() {
+    var arr1 = "john".split(''); //[j,o,h,n]
+    var arr2 = arr1.reverse(); //[n,h,o,j]
+    var arr3 = "jones".split(''); //[j,o,n,e,s]
+    arr2.push(arr3); //[n,h,o,j,[j,o,n,e,s]]
+    console.log(arr1, arr2)
+    console.log("array 1: length=" + arr1.length + " last=" + arr1.slice(-1)); //4, jones
+    console.log("array 2: length=" + arr2.length + " last=" + arr2.slice(-1)); //9, jones
+}
+
+test8()
+
 
 
 
