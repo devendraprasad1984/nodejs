@@ -64,6 +64,7 @@ function test5() {
 }
 
 function test6() {
+    // currying function: converting function that take multiple arguments into various functions that take single argument
     //console.log(sum(2,3));   // Outputs 5
     // console.log(sum(2)(3));  // Outputs 5
     function sum(x) {
@@ -263,5 +264,26 @@ function test22() {
     console.log(obj, objShallow, objDeep)
 }
 
-test22()
+function test23_curry() {
+    function sum(a, b, c) {
+        return a + b + c
+    }
+
+    function curry(func) {
+        return function _(...args) {
+            console.log(func.length, args.length, func, args)
+            if (args.length < func.length)
+                return (...args2) => _.apply(this, args.concat(args2))
+            else
+                return func.apply(this, args)
+        }
+    }
+
+    let curried = curry(sum)
+    // console.log(curried(1, 2, 3))
+    console.log(curried(1)(2, 3))
+    // console.log(curried(1)(2)(3))
+}
+
+test23_curry()
 
