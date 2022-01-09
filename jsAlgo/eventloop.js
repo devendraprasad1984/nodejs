@@ -14,4 +14,5 @@ console.log("Wasted time until", Date.now() - start);
 Promise.resolve("Done").then(v=>console.log(v, 'now called'));
 console.log("Me first!");
 // → Me first!
-// → Done
+// → Done now called
+
