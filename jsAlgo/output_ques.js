@@ -285,5 +285,39 @@ function test23_curry() {
     // console.log(curried(1)(2)(3))
 }
 
-test23_curry()
+function test24() {
+    //encapsulating - tie data and methods that operate together
+    let Employee = function () {
+        this.baseSalary = 30000,
+            this.overtime = 10,
+            this.rate = 20,
+            this.calcWage = function () {
+                return this.baseSalary * (this.overtime * this.rate);
+            }
+    }
+    let dp = new Employee()
+    console.log(dp, dp.calcWage())
+}
+
+function test25() {
+    let employee = {
+        create: function (salary, overtime, rate) {
+            let obj = {
+                baseSalary: salary,
+                overtime: overtime,
+                rate: rate
+            }
+            return {...this, ...obj}
+        },
+        calcWage: function () {
+            return this.baseSalary * (this.overtime * this.rate);
+        }
+    }
+    let dp = Object.assign({}, employee).create(20000, 1500, 20)
+    console.log(dp.calcWage())
+    let dp2 = Object.assign({}, employee).create(10000, 1000, 30)
+    console.log(dp2.calcWage())
+}
+
+test25()
 
