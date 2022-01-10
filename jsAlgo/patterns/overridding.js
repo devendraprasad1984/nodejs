@@ -24,5 +24,5 @@ dog2.moveWest()
 //by doing this way, new function definitation gets associated with each object
 //so we do it prototype way
 dog.moveEast()
-dog2.moveEast()
+dog2.moveEast();
 
