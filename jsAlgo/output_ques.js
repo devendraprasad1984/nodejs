@@ -319,5 +319,17 @@ function test25() {
     console.log(dp2.calcWage())
 }
 
-test25()
+function test26() {
+    const obj = {
+        name: 'abc',
+        address: {
+            city: 'mumbai'
+        }
+    }
+    Object.freeze(obj)
+    obj.address.city = 'pune'
+    console.log(obj)
+}
+
+test26()
 
