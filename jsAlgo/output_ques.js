@@ -331,5 +331,16 @@ function test26() {
     console.log(obj)
 }
 
-test26()
+function test27() {
+    let arr = [
+        {name: 'name1', age: 20},
+        {name: 'name2', age: 20},
+        {name: 'name3', age: 20},
+        {name: 'name4', age: 20},
+        {name: 'name5', age: 20}
+    ]
+    let arrNames = Array.from(arr, ({name}) => name)
+    console.log(arrNames)
+}
+
 
