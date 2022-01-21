@@ -3,6 +3,8 @@ import express from "express";
 import bodyParser from "body-parser";
 import logging from "./config/logging";
 import config from "./config/config";
+import sampleRoute from './routes/sampl'
+
 
 const NAMESPACE = 'Server'
 const router = express()
@@ -35,6 +37,7 @@ router.use((req, res, next) => {
 })
 
 //routes
+router.use('/sample', sampleRoute)
 
 
 //error handling
