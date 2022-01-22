@@ -1,5 +1,8 @@
 import {Express, Request, Response, NextFunction} from 'express'
 import simpleLogger from "./config/simpleLogger";
+import validateRequests from "./middleware/validateRequests";
+import {createUserHandler} from "./controllers/user.controller";
+import {createUserSchema} from "./schema/user.schema";
 
 export default function (app: Express) {
     simpleLogger.info('routes invoked')
@@ -13,6 +16,7 @@ export default function (app: Express) {
 
     //register user
     //POST /api/user
+    app.post("/api/users", validateRequests(createUserSchema), createUserHandler);
 
     //login
     //POST /api/session
