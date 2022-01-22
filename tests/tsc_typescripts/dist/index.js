@@ -47,5 +47,49 @@ function log(message) {
 }
 log('hello world message');
 const userByInterface = {
-    id: 1, name: 'john'
+    id: 1,
+    name: 'john'
 };
+userByInterface.id = 6;
+const p1 = 1;
+const add = (x, y) => x + y;
+const subtract = (x, y) => x - y;
+console.log('adding 2 numbers using interface type', add(3, 4));
+class Person {
+    constructor(id, name) {
+        this.id = id;
+        this.name = name;
+    }
+    //overriding toString, polymorphs
+    toString() {
+        return this.id + '==>' + this.name;
+    }
+    register() {
+        return `${this.name} is now registered`;
+    }
+}
+class Employee extends Person {
+    constructor(id, name, position) {
+        super(id, name);
+        this.position = position;
+    }
+    toString() {
+        return this.id + '==>' + this.name + '===>' + this.position;
+    }
+}
+const dp = new Person(1, 'devendra prasad');
+const harish = new Person(2, 'harish');
+console.log(dp.register(), harish.register());
+console.log('Person Objects', dp.toString(), harish.toString());
+const emp1 = new Employee(3, 'dp', 'tech lead');
+console.log(emp1.register(), emp1.toString());
+//generics - used to build reusable components
+//has to has numbers or has to has specific type
+//placeholder for specific types
+function getArray(items) {
+    return new Array().concat(items);
+}
+let numArray = getArray([1, 2, 4, 5, 6]);
+let strArray = getArray(['1', '2', '3', '4', '5']);
+numArray.push(10);
+// numArray.push('hello')
