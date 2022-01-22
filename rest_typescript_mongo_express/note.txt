@@ -3,6 +3,9 @@ local: npm install typescript ts-node prettier --save-dev
 tsc -v
 tsc --init
 
+tutorial: https://www.youtube.com/watch?v=goUbHgAzPCs
+git: https://github.com/TomDoesTech/REST-API-Tutorial
+
 rest api structuring
 npm install yup config cors mongoose pino pino-pretty dayjs bcrypt jsonwebtoken lodash nanoid
 npm install --save-dev @types/body-parser @types/config @types/cors @types/express @types/node @types/yup @types/mongoose @types/bcrypt @types/jsonwebtoken @types/lodash
