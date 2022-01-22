@@ -6,10 +6,7 @@ function connect() {
     const dbUri: string = config.dbUri;
 
     return mongoose
-        .connect(dbUri, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        })
+        .connect(dbUri)
         .then(() => {
             log.info("Database connected");
         })
