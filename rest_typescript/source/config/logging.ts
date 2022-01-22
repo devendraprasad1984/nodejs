@@ -1,38 +1,24 @@
-const getTimestamp = (): string => {
-    return new Date().toISOString()
-};
+import simpleLogger from "./simpleLogger";
 
 const info = (namespace: string, message: string, object?: any) => {
-    if (object) {
-        console.log(`[${getTimestamp()}] [info] [${namespace} ${message}]`, object)
-    } else {
-        console.log(`[${getTimestamp()}] [info] [${namespace} ${message}]`)
-    }
+    console.log(`printing for ${namespace}`)
+    simpleLogger.info(message, object)
 }
 
 const warn = (namespace: string, message: string, object?: any) => {
-    if (object) {
-        console.log(`[${getTimestamp()}] [warn] [${namespace} ${message}]`, object)
-    } else {
-        console.log(`[${getTimestamp()}] [warn] [${namespace} ${message}]`)
-    }
+    console.log(`printing for ${namespace}`)
+    simpleLogger.warn(message, object)
 }
 
 const error = (namespace: string, message: string, object?: any) => {
-    if (object) {
-        console.log(`[${getTimestamp()}] [error] [${namespace} ${message}]`, object)
-    } else {
-        console.log(`[${getTimestamp()}] [error] [${namespace} ${message}]`)
-    }
+    console.log(`printing for ${namespace}`)
+    simpleLogger.error(message, object)
 }
 
 
 const debug = (namespace: string, message: string, object?: any) => {
-    if (object) {
-        console.log(`[${getTimestamp()}] [debug] [${namespace} ${message}]`, object)
-    } else {
-        console.log(`[${getTimestamp()}] [debug] [${namespace} ${message}]`)
-    }
+    console.log(`printing for ${namespace}`)
+    simpleLogger.debug(message, object)
 }
 
 export default {
