@@ -1,7 +1,8 @@
-import { AnySchema } from "yup";
-import { Request, Response, NextFunction } from "express";
+import {AnySchema} from "yup";
+import {Request, Response, NextFunction} from "express";
 import log from "../config/simpleLogger";
 
+//this part is also called currying, basically, nested function calls ends up in single function call
 const validate = (schema: AnySchema) => async (
     req: Request,
     res: Response,
@@ -15,9 +16,9 @@ const validate = (schema: AnySchema) => async (
         });
 
         return next();
-    } catch (e) {
-        log.error(e);
-        return res.status(400).send(e.errors);
+    } catch (e: any) {
+        log.error("error", e);
+        return res.status(400).send('validate error ' + e.error + '->' + e.message);
     }
 };
 

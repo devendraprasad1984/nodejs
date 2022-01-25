@@ -12,8 +12,6 @@ export default function (app: Express) {
             message: 'app health is running fine'
         })
     })
-
-
     //register user
     //POST /api/user
     app.post("/api/users", validateRequests(createUserSchema), createUserHandler);
