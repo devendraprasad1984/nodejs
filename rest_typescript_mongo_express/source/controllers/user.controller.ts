@@ -3,6 +3,9 @@ import {omit} from "lodash";
 import {createUser} from "../service/user.service";
 import log from "../config/simpleLogger";
 
+//all controllers take (req, res), and would never interact with DB directly
+//for that services will be there and this is how
+//we have separated API layer logic with DB layer logic
 export async function createUserHandler(req: Request, res: Response) {
     try {
         const user = await createUser(req.body);
