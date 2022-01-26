@@ -38,7 +38,10 @@ function test29() {
     //     All numbers in the list are positive integers and the list can be empty.
 
     let str1 = "2000 65 56 11 11 74 180 99 68 86 100 90".split(" ")
-    let strSorted = str1.sort((a, b) => a - b)
+    let strSorted = str1.sort((a, b) => {
+        return a.toString().localeCompare(b.toString())
+    })
+    console.log('strSorted', strSorted)
     let sums = []
     let onlySums = []
     let weights = []
@@ -67,5 +70,51 @@ function test29() {
     return weights.join(' ')
 }
 
-console.log(test29())
+function test30() {
+    // "Chennai" -> "Banglore"
+    // "Bombay" -> "Delhi"
+    // "Goa"    -> "Chennai"
+    // "Delhi"  -> "Goa"
+    //
+    // Output:
+    //     Bombay->Delhi, Delhi->Goa, Goa->Chennai, Chennai->Banglore
+    //touring of cities
+    let arr = [
+        ["chennai", "bengalore"],
+        ["bombay", "delhi"],
+        ["goa", "chennai"],
+        ["delhi", "goa"]
+    ]
+    let map = {} //for from->to direction
+    let rmap = {} //for to->from direction
+    for (let i of arr) {
+        map[i[0]] = i[1]
+        rmap[i[1]] = i[0]
+    }
+    //loop every key in rmap and see if its present, if not, that where we need to start
+    let kmap = Object.keys(map)
+    let rkmap = Object.keys(rmap)
+    let start = ''
+    for (let i of kmap) {
+        if (rkmap.indexOf(i) === -1) {
+            //found where to start
+            start = i
+            break
+        }
+    }
+    let retVal = []
+    console.log(map, rmap, kmap, rkmap, start)
+    if (start !== '')
+        retVal.push(start)
+    while (start !== '' && start !== undefined) {
+        let location = map[start]
+        if (location === '' || location === undefined) break
+        retVal.push(location)
+        start = location
 
+    }
+    console.log('itenery', retVal)
+    return retVal.join(', ')
+}
+
+console.log(test30())
