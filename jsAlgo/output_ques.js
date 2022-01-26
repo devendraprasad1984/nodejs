@@ -342,5 +342,3 @@ function test27() {
     let arrNames = Array.from(arr, ({name}) => name)
     console.log(arrNames)
 }
-
-
