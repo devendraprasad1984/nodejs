@@ -190,7 +190,7 @@ function test2() {
                     patientId: pid,
                     visitDate: date.replace('+', '').trim(),
                     paid: paid.trim() === 'Y' ? true : false,
-                    treatmentCodes: codes.length > 0 ? codes.split(',').map(x => Number(x)):[]
+                    treatmentCodes: codes.length > 0 ? codes.split(',').map(x => Number(x)) : []
                 }
                 data.push(obj)
 
@@ -330,4 +330,174 @@ function test3() {
     // add_(10,10); // returns 20
     // Hint: This problem requires using Function.prototype.toString() in order to extract a function's argument list.}
 
-test2()
+    function defaultArguments(func, params) {
+        let body = func.toString()
+        let pos = body.indexOf(func.name)
+        let par = body.substring(pos + func.name.length + 1, body.indexOf(')')).split(',').map(x => x.trim())
+        // let argsArray = Array.prototype.slice.call(arguments);
+        // console.log(body,par, arguments[1])
+        function retFn(...param){
+            let finalParam = []
+            console.log(retFn.name,param, params)
+            let cnt = 0
+            for (let i of par) {
+                if (par.length === param.length) {
+                    finalParam.push(param[cnt])
+                } else if (params[i] !== undefined) {
+                    finalParam.push(params[i])
+                } else {
+                    finalParam.push(param[cnt])
+                }
+                cnt++
+            }
+            //finalParam.push(param[0], params['b'])
+            return func.apply(this, finalParam)
+        }
+        return retFn
+    }
+
+    function add(a, b) {
+        return a + b
+    }
+
+    let add_ = defaultArguments(add, {b: 9});
+    // console.log(add_(10), 19);
+    // console.log(add_(10, 5), 15);
+    add_ = defaultArguments(add_, {b: 3});
+    console.log(add_(10), 13);
+}
+
+test3()
+
+function test4() {
+    function add(a, b) {
+        return a + b;
+    }
+
+    var add_ = defaultArguments(add, {b: 9});
+    console.log(add_(10)); // returns 19
+    console.log(add_(10, 7)); // returns 17
+    console.log(add_()); // returns NaN
+
+    add_ = defaultArguments(add_, {b: 3, a: 2});
+    console.log(add_(10)); // returns 13 now
+    console.log(add_()); // returns 5
+
+    add_ = defaultArguments(add_, {c: 3}); // doesn't do anything, since c isn't an argument
+    add_(10); // returns NaN
+    add_(10, 10); // returns 20
+
+
+//Main func  defaultArguments
+    function defaultArguments(func, opt) {
+
+        if (func == undefined) {
+            return;
+        }
+
+        //Remove comment from arguments
+        function removeComments(str) {
+
+            var uid = '_' + +new Date(),
+                primatives = [],
+                primIndex = 0;
+
+            return (
+                str
+                    /* Remove strings */
+                    .replace(/(['"])(\\\1|.)+?\1/g, function (match) {
+                        primatives[primIndex] = match;
+                        return (uid + '') + primIndex++;
+                    })
+
+                    /* Remove Regexes */
+                    .replace(/([^\/])(\/(?!\*|\/)(\\\/|.)+?\/[gim]{0,3})/g, function (match, $1, $2) {
+                        primatives[primIndex] = $2;
+                        return $1 + (uid + '') + primIndex++;
+                    })
+
+
+                    .replace(/\/\/.*?\/?\*.+?(?=\n|\r|$)|\/\*[\s\S]*?\/\/[\s\S]*?\*\//g, '')
+
+                    /*
+                                Remove single and multi-line comments,
+                                no consideration of inner-contents
+                               */
+                    .replace(/\/\/.+?(?=\n|\r|$)|\/\*[\s\S]+?\*\//g, '')
+
+
+                    .replace(RegExp('\\/\\*[\\s\\S]+' + uid + '\\d+', 'g'), '')
+
+                    /* Bring back strings & regexes */
+                    .replace(RegExp(uid + '(\\d+)', 'g'), function (match, n) {
+                        return primatives[n];
+                    })
+            );
+
+        }
+
+        var strf = func.toString();
+        var regFunc = /\(([^)]+)\)/;
+        var comment = /(\/\*[\w\'\s\r\n\*]*\*\/)|(\/\/[\w \']*)|(\<![\-\-\s\w\>\/]*\>)/g;
+        if (regFunc.exec(strf) == null) {
+            return func;
+        }
+
+        var nestedFunc = [];
+        if (strf.match(comment) == null) {
+            nestedFunc = regFunc.exec(strf)[1].split(',');
+        } else {
+            var remove_comment = removeComments(strf);
+            nestedFunc = regFunc.exec(remove_comment)[1].split(',');
+        }
+
+
+        var opt = opt || {};
+        var result = result || {};
+
+        nestedFunc.forEach(function (value, index) {
+            value = value.trim();
+            if (opt.hasOwnProperty(value)) {
+
+                result[value] = opt[value];
+            } else if (value == 'arg') {
+                for (let i in opt) {
+                    if (opt.hasOwnProperty(i)) {
+                        result[i] = opt[i];
+                    }
+                }
+            }
+        });
+
+        return function (arg) {
+
+            var argsArray = Array.prototype.slice.call(arguments);
+            var final = [];
+
+            if (nestedFunc == 'arg') {
+                argsArray.forEach(function (value, index) {
+                    if (isNaN(value)) {
+                        return NaN;
+                    }
+                    result[index] = value
+                });
+            }
+            argsArray.forEach(function (value, index) {
+                result[nestedFunc[index]] = value;
+            });
+
+            for (let i in result) {
+                if (result.hasOwnProperty(i)) {
+                    // delete final;
+                    final.push(result[i]);
+                }
+            }
+            if (arg == undefined && Object.keys(result).length == 0) {
+                return NaN;
+            }
+            return func.apply(this, final);
+        }
+    }
+}
+
+// test4()
