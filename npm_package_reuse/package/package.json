@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git+https://github.com/devendraprasad1984/nodejs/tree/master/npm_package_reuse/package"
   },
   "keywords": [
     "dp",
