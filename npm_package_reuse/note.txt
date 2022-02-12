@@ -6,3 +6,8 @@ https://www.youtube.com/watch?v=J4b_T-qH3BY
 after test
 npm login to npmjs.org
 npm publish
+
+for scoped package creation by defauly, while creating, npm init --scope=dpresume.com
+or
+for named space package, prefix name in package.json with @<name>/<packagename> eg @dpresume.com/dpfirst and publish it
+like npm publish --access=public
