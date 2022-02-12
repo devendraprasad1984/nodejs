@@ -1,0 +1,21 @@
+{
+  "name": "dpfirst",
+  "version": "1.0.0",
+  "description": "the very first test npm package",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+    "dp",
+    "first",
+    "npm",
+    "test"
+  ],
+  "author": "devendra prasad dpresume",
+  "license": "ISC"
+}
