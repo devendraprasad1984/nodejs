@@ -50,3 +50,14 @@ Promise.all([p1, p2, p3, p4]).then(values => {
     console.log('from all promises', values)
 }).catch(e => console.log('one or many promises failing'))
 
+
+const p = new Promise((resolve, reject) => {
+    const sum = 1 + 2
+    if (sum === 2)
+        resolve('success')
+    else
+        reject('failed')
+})
+
+p.then((msg) => console.log('this is in then, promise resolved - ' + msg))
+    .catch(msg => console.log('this is in catch, promise rejected - ' + msg))
