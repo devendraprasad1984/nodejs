@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <title>real time chat application - socket.io</title>
     <link href="./index.css" rel="stylesheet">
-    <script defer src="script.js" type="application/javascript"></script>
+    <script defer src="http://localhost:6201/socket.io/socket.io.js"></script>
+    <script defer src="script.js"></script>
 </head>
 <body>
 
 <div id="message-container">hello</div>
-<form action="/chat" action="" id="send-container" method="post">
+<form id="send-container">
     <input id="message-input" type="text"/>
     <button id="send-button" type="submit">Send</button>
 </form>

@@ -4,7 +4,8 @@
   "description": "",
   "main": "chat_server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "devStart": "nodemon chat_server.js",
+    "runLocalHttpServer": "http-server -p 8081 -l localhost -o --cors --watch"
   },
   "author": "",
   "license": "ISC",
