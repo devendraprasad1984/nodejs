@@ -13,15 +13,16 @@ function Student(id, name) {
 
 
 //es6
-class Person {
+class PersonC {
     constructor(name) {
         this.name = name
     }
 }
 
-class Student extends Person {
+class StudentC extends PersonC {
     constructor(id, name) {
         super(name);
         this.studentid = id
     }
 }
+
