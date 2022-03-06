@@ -96,6 +96,17 @@ Promise.resolve('foo')
         console.log("Last Then:  oops... didn't bother to instantiate and return " +
             "a promise in the prior then so the sequence may be a bit " +
             "surprising");
-        console.log('last hit promise on string',string)
+        console.log('last hit promise on string', string)
     });
 
+//rejected promise
+Promise.resolve()
+    .then(() => {
+        // Makes .then() return a rejected promise
+        throw new Error('Oh no!');
+    })
+    .then(() => {
+        console.log('Not called.');
+    }, error => {
+        console.error('onRejected function called: ' + error.message);
+    });
