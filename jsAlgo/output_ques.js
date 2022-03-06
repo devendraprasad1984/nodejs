@@ -270,8 +270,8 @@ function test23_curry() {
     }
 
     function curry(func) {
+        //closure way
         return function _(...args) {
-            console.log(func.length, args.length, func, args)
             if (args.length < func.length)
                 return (...args2) => _.apply(this, args.concat(args2))
             else

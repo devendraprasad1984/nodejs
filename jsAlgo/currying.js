@@ -4,70 +4,42 @@ const mul = (a, b, c, d) => a * b * c * d
 
 const perpetualCurry = fn => (...args) => {
     return fn(...args)
-    // if (args.length === fn.length) {
-    //     return fn(...args)
-    // } else {
-    //     console.log(fn, ...args)
-    //     return perpetualCurry(fn.bind(fn, ...args))
-    // }
+    if (args.length === fn.length) {
+        return fn(...args)
+    } else {
+        return perpetualCurry(fn.bind(fn, ...args))
+    }
 }
 
 
 const multplyC = perpetualCurry(mul)
 const addC = perpetualCurry(add)
 // console.log(addC(1)(2)(3))
-console.log(addC(1)(2))
+// console.log(addC(1)(2))
 // console.log(multplyC(1)(2)(3)(4))
 // console.log(multplyC(1)(2))
-/*
-function perpetualCurry(func) {
-  const len = func.length
 
-  function inner(l, arr) {
-    return function(a) {
-      if (l <= 1) {
-       return func(...arr,a)
-      } else {
-      return  inner(len - 1, [...arr,a])
-      }
-    }
-
-
-  }
-
-
-  return inner(len, [])
-} */
-
-/*
-function curry(fn) {
-  const N = fn.length;
-  function innerFn(n, args) {
-    return function (a) {
-      if(n <= 1) {
-        return fn(...args, a);
-      }
-     return innerFn(n - 1, [...args, a]);
-    }
-  }
-  return innerFn(N, [])
+//this behaviour is function currying using bind
+let multiply = function (x, y) {
+    console.log(`product of ${x} and ${y} is ${x * y}`)
 }
- */
+let multiplyBy2 = multiply.bind(this, 2) //copy multiply but dont call it and set 2 as 1st param as 2
+let _one = multiply.bind(this, 2, 4) //8, now 4 will be added to y, this implementation is what currying is
+_one()
+_one(10)//ignores 10
+multiplyBy2(10) //10 will be set on y
 
-/* let sum=(a,b,c,d,e)=>a+c+b+d+e
+let multiplyBy3 = multiply.bind(this, 3)
+multiplyBy3(5)
+multiplyBy3(4, 4)
 
-function functionCurry(fn){
-   return function(...params){
-       console.log(params,fn.length)
-       if(params.length === fn.length){
-         return  fn(...params)
-          //call the fn
-       }else{
-           return functionCurry(fn.bind(fn,...params))
-       }
-   }
+
+//currying using closures
+function plus(num1) {
+    return function (num2) {
+        console.log('sum is ' + (num1 + num2))
+    }
 }
-const currySum=functionCurry(sum)
 
-console.log(currySum(1)(2)(1)(2)(1))
-*/
+let plusBy10 = plus(10)
+plusBy10(20)
