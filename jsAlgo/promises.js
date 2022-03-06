@@ -182,4 +182,3 @@ p3.then(function(v) {
     console.error('rejected', e); // "rejected", 'Error'
 });
 
-
