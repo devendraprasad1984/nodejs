@@ -61,3 +61,41 @@ const p = new Promise((resolve, reject) => {
 
 p.then((msg) => console.log('this is in then, promise resolved - ' + msg))
     .catch(msg => console.log('this is in catch, promise rejected - ' + msg))
+
+var _p2 = new Promise((resolve, reject) => {
+    resolve('Success!');
+    // or
+    // reject(new Error("Error!"));
+});
+
+_p2.then(value => {
+    console.log(value); // Success!
+}, reason => {
+    console.error(reason); // Error!
+});
+
+
+//chaining
+Promise.resolve('foo')
+    .then(function (string) {
+        return new Promise(function (resolve, reject) {
+            setTimeout(function () {
+                string += 'bar';
+                resolve(string);
+            }, 1);
+        });
+    })
+    .then(function (string) {
+        setTimeout(function () {
+            string += 'baz';
+            console.log(string); // foobarbaz
+        }, 1)
+        return string;
+    })
+    .then(function (string) {
+        console.log("Last Then:  oops... didn't bother to instantiate and return " +
+            "a promise in the prior then so the sequence may be a bit " +
+            "surprising");
+        console.log('last hit promise on string',string)
+    });
+
