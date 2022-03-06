@@ -110,3 +110,38 @@ Promise.resolve()
     }, error => {
         console.error('onRejected function called: ' + error.message);
     });
+
+//rejecting promise
+Promise.reject()
+    .then(() => 99, () => 42)
+    .then(solution => console.log('Resolved with ' + solution))
+
+
+Promise.resolve()
+    .then(() => {
+        throw new Error('Oh no!');
+    })
+    .catch(error => {
+        console.error('onRejected function called: ' + error.message);
+    })
+    .then(() => {
+        console.log("I am always called even if the prior then's promise rejects");
+    });
+
+
+//You can also use chaining to implement one function with a Promise-based API on top of another such function.
+function fetch_current_data() {
+    // The fetch() API returns a Promise.  This function
+    // exposes a similar API, except the fulfillment
+    // value of this function's Promise has had more
+    // work done on it.
+    return fetch('current-data.json').then(response => {
+        if (response.headers.get('content-type') != 'application/json') {
+            throw new TypeError();
+        }
+        var j = response.json();
+        // maybe do something with j
+        return j; // fulfillment value given to user of
+                  // fetch_current_data().then()
+    });
+}
