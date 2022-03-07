@@ -1,24 +1,25 @@
-//try to rewrite with a concept of bind - way of currying
-function reduce(arr, func, init) {
-    let res;
-    let counter=0
-    let isArray=Array.isArray(arr)
-    for(let i in arr){
-        let val=arr[i]
-        res= isArray ? func(init, val) : func(init, val, i)
-        counter++
-    }
-    return res
-}
-const result1 = reduce( [1, 2, 3],function(sum, n) {
-  return sum + n;
-}, 0);
-console.log(result1)
-// => 6
+//currying-pollyfill using bind
 
-const result2 = reduce({ 'a': 1, 'b': 2, 'c': 1 }, function(result, value, key) {
-    (result[value] || (result[value] = [])).push(key);
-    return result;
-}, {});
-console.log(result2)
-// => { '1': ['a', 'c'], '2': ['b'] } (iteration order is not guaranteed)
+let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+Array.prototype.myReduce = function (fn, init, context) {
+    let arr = this
+    let accumulator = init || undefined
+    for (let i = 0; i < arr.length; i++) {
+        if (accumulator !== undefined) {
+            accumulator = fn.call(undefined, accumulator, arr[i])
+        } else {
+            accumulator = arr[0]
+        }
+    }
+    return accumulator
+}
+
+let sum = arr.reduce((accumulator, index) => {
+    return accumulator + index
+}, 0)
+console.log('reduce built-in', sum)
+
+let sum1 = arr.myReduce((accumulator, index) => {
+    return accumulator + index
+}, 0)
+console.log('reduce pollyfilled', sum1)
