@@ -1,3 +1,4 @@
+//try to rewrite with a concept of bind - way of currying
 function reduce(arr, func, init) {
     let res;
     let counter=0
