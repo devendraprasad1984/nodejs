@@ -4,11 +4,7 @@ function reduce(arr, func, init) {
     let isArray=Array.isArray(arr)
     for(let i in arr){
         let val=arr[i]
-        if(counter===0){
-            res= isArray ? func(init, val) : func(init, val, i)
-        }else{
-            res= isArray ? func(init, val) : func(init, val, i)
-        }
+        res= isArray ? func(init, val) : func(init, val, i)
         counter++
     }
     return res
