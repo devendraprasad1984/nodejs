@@ -29,3 +29,10 @@ console.log('BIND')
 let printMe = printAgain.bind(name2, 'Mumbai', 'India')
 console.log('bind copy', printMe)
 printMe()
+
+// currying, function borrowing, used to store reference or save copy of execution like closure and call later
+let multiply = function (x, y) {
+    console.log(`product of ${x} and ${y} is ${x * y}`)
+}
+multiply.bind(undefined,2)(3)
+multiply.bind(undefined)(2, 3)
