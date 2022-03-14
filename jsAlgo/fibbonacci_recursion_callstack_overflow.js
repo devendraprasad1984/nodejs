@@ -11,3 +11,4 @@ console.log(fib(10)) //55
 
 //big O will be 2^n -exponential and is very very bad
 
+//solution to make it work
