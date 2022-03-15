@@ -342,3 +342,57 @@ function test27() {
     let arrNames = Array.from(arr, ({name}) => name)
     console.log(arrNames)
 }
+
+function testMar22Tue() {
+    function test1() {
+        const object = {
+            message: 'Hello, World!',
+            getMessage() {
+                const message = 'Hello, Earth!';
+                return this.message;
+            }
+        };
+        console.log(object.getMessage()); //hello world as this will be from object itself when called with object
+    }
+
+    function test2() {
+        function Pet(name) {
+            this.name = name;
+            this.getName = () => this.name;
+        }
+
+        const cat = new Pet('Fluffy');
+        console.log(cat.getName()); //fluffy from cat object, this got bound from its surrounding scope which is cat
+        const {getName} = cat;
+        console.log(getName());     //fluffy from cat object, this got bound from its surrounding scope which is cat
+    }
+
+    function test3() {
+        const object = {
+            message: 'Hello, World!',
+            logMessage() {
+                console.log(this.message); //undefined, because this will point to scope of settimeout here
+            }
+        };
+        setTimeout(object.logMessage, 1000);
+    }
+
+    function test4() {
+        const object = {
+            message: 'Hello, World!'
+        };
+
+        function logMessage() {
+            console.log(this.message);
+        }
+
+        logMessage() //undefined
+        logMessage.bind(object)() //hello world, passed this context and message will be there
+        logMessage.call(object) //function borrowing, hello world
+    }
+
+}
+
+testMar22Tue()
+
+
