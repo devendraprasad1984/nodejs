@@ -244,7 +244,7 @@ function test21() {
         }, i * 1000);
     }
 
-    //by closure, we can fix this by binding context of i to new funtion call
+    //by closure, we can fix this by binding context of i to new function call
     for (var i = 0; i < 5; i++) {
         (function (i) {
             setTimeout(function () {
@@ -257,7 +257,9 @@ function test21() {
 function test22() {
     var obj = {a: 1, b: 2, c: {age: 20}}
     var objShallow = Object.assign({}, obj) //shallow copy
-    var objDeep = JSON.parse(JSON.stringify(obj)) //deep copy
+    var objDeep = JSON.parse(JSON.stringify(obj)) //deep copy, create problems with symbols
+    var objDeep1 = Object.create({}, obj) //deep copy
+    var objDeep1 = {...obj} //deep copy destructure way
     console.log(obj, objShallow, objDeep)
     obj.a = 10
     obj.c.age = 30
