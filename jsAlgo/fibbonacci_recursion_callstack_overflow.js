@@ -11,4 +11,18 @@ console.log(fib(10)) //55
 
 //big O will be 2^n -exponential and is very very bad
 
-//solution to make it work
+//solution to make it work and no callstack, no recursion
+function fibNoRec(n) {
+    let sum = 0
+    for (let i = n; i > 0; i--) {
+        sum += i
+    }
+    if (n <= 2) sum = 1
+    return sum
+}
+
+// console.log(fibNoRec(5))
+console.log(
+    fibNoRec(10),
+    fibNoRec(100)
+)
