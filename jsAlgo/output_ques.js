@@ -425,6 +425,25 @@ function testMar22Tue() {
         object.method(callback, 1, 2);
     }
 
+    function test7() {
+        var obj1 = {
+            foo: 'foo',
+            bar: 'bar'
+        }
+        var obj2 = {
+            foo: 'foo',
+            bar: function () {
+                console.log('obj2', this.foo)
+            }
+        }
+        (function() {
+            console.log(obj1 == obj2)
+            console.log(obj1 === obj2)
+            obj2.bar()
+        })()
+    }
+
+    test7()
 }
 
 testMar22Tue()
