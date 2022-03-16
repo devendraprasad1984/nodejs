@@ -259,7 +259,7 @@ function test22() {
     var objShallow = Object.assign({}, obj) //shallow copy
     var objDeep = JSON.parse(JSON.stringify(obj)) //deep copy, create problems with symbols
     var objDeep1 = Object.create({}, obj) //deep copy
-    var objDeep1 = {...obj} //deep copy destructure way
+    var objDeep1 = {...obj} //deep copy spread way
     console.log(obj, objShallow, objDeep)
     obj.a = 10
     obj.c.age = 30
@@ -391,6 +391,38 @@ function testMar22Tue() {
         logMessage() //undefined
         logMessage.bind(object)() //hello world, passed this context and message will be there
         logMessage.call(object) //function borrowing, hello world
+    }
+
+    function test5() {
+        const object = {
+            who: 'World',
+            greet() {
+                return `Hello, ${this.who}!`;
+            },
+            farewell: () => {
+                return `Goodbye, ${this.who}!`;
+            }
+        };
+        console.log(object.greet());    // hello world, as object and calling are in same scope, its being returned
+        console.log(object.farewell()); // goodbye, undefined due to arrow func doesnt have this of own but equals of outer scope of call
+    }
+
+    function test6() {
+        var length = 4;
+
+        function callback() {
+            console.log(this.length);
+        }
+
+        const object = {
+            length: 5,
+            method(callback) {
+                callback(); //4, called like regular func call and hence this points to global scope
+                arguments[0]() //3, not like a regular call, so this would point to object argument scope
+                // arguments[0]() is a method invocation of callback on arguments object, this inside the callback equals arguments. As result this.length inside callback() is same as arguments.length
+            }
+        };
+        object.method(callback, 1, 2);
     }
 
 }
