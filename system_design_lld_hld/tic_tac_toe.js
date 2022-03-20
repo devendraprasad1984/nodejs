@@ -1,34 +1,34 @@
-//
-// its a square 2D matrix game, nxn, each cell is a square
-// in this case it will be integer cell, x, o, empty
-// winner: player1 or player2 or yet to be decided or draw
-//
-// board class
-//     initialise board for 2D matrix
-//     getBoard()
-//     getWinner()
-//     getCurrentPlayer() -flip from 1 to 2 and 2 to 1
-//     makeMove(Move m), move is defined by player and current cell of move
-//
-// user class
-//     userId
-//     stats (winns, loses)
-//     profile
-//
-// Game
-//     initialise()
-//     undoMove()
-//     game_id
-//     userId1=>User
-//     userId2=>User
-//     List<Move>
-//
-//
-// order n time winner
-//     in this game the deciding factor ie finding a winner can be calculated when the player has called Move
-//     so the calculation and runtime is much faster as the algo has to just look at row|col|diagonal in which
-//     player currently made the move. this is how overall complexity is reduced to order n to find the winner
-//
+/*
+its a square 2D matrix game, nxn, each cell is a square
+in this case it will be integer cell, x, o, empty
+winner: player1 or player2 or yet to be decided or draw
+
+board class
+    initialise board for 2D matrix
+    getBoard()
+    getWinner()
+    getCurrentPlayer() -flip from 1 to 2 and 2 to 1
+    makeMove(Move m), move is defined by player and current cell of move
+
+user class
+    userId
+    stats (winns, loses)
+    profile
+
+Game
+    initialise()
+    undoMove()
+    game_id
+    userId1=>User
+    userId2=>User
+    List<Move>
+
+
+order n time winner
+    in this game the deciding factor ie finding a winner can be calculated when the player has called Move
+    so the calculation and runtime is much faster as the algo has to just look at row|col|diagonal in which
+    player currently made the move. this is how overall complexity is reduced to order n to find the winner
+*/
 
 function TicTacToe() {
     function createBoard(board = [][]) {
