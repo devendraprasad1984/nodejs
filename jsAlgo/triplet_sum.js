@@ -9,14 +9,18 @@
 
 let arr = [12, 3, 4, 1, 6, 9]
 let sum = 24
-let pairs = []
-for (let i = 0; i < arr.length; i++) {
-    for (let j = i + 1; arr.length; j++) {
-        for (let k = j + 1; k < arr.length; k++) {
-            if (sum === (arr[i] + arr[j] + arr[k])) {
-                console.log('found sum', arr[i], arr[j], arr[k])
-                break
+
+function findTriplet() {
+    for (let i = 0; i < arr.length - 2; i++) {
+        for (let j = i + 1; arr.length - 1; j++) {
+            for (let k = j + 1; k < arr.length; k++) {
+                if (sum === (arr[i] + arr[j] + arr[k])) {
+                    console.log('found sum', arr[i], arr[j], arr[k])
+                    return true
+                }
             }
         }
     }
+    return false
 }
+findTriplet()
