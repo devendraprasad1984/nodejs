@@ -31,7 +31,7 @@ order n time winner
 */
 
 function TicTacToe() {
-    function createBoard(board = [][]) {
+    function createBoard(board = []) {
         this.board = board
         this.rowSum = new Array(n) //for optimisation and not via looping
         this.colSum = new Array(n) //for optimisation
