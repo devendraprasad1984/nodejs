@@ -1,5 +1,5 @@
 //pollyfill is browser fallback or support for older browsers
-//this concept is called currying
+//function bind returting function and not accepting all args at once, later to be used, this concept is called currying
 let name = {
     firstname: 'devendra',
     lastname: 'prasad'
