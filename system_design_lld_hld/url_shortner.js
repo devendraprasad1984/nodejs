@@ -44,7 +44,7 @@
 *   we can MD5 (128bit encryption) / SHA256
 *   the issue with base64 and MD5 is if 2 people enter same url, they get same key which is not acceptable. workaround would
 *   append each input with userid, datetime or increasing sequencer (may overflow) and then apply hash
-*   2. Key Geneation Service: pre written unique KEY database, for every request assign it from here. concurrency
+*   2. Key Generation Service: pre written unique KEY database, for every request assign it from here. concurrency
 *   can be a problem here. so KGS can use 2 tables one for used keys and one for non used keys. also we can have a
 *   cache in memory for faster responses. its a single point of failure. KGS will have secondary replica
 *   base64 based KGS DB size: 6 (characters per key) * 68.7B (unique keys) = 412 GB
@@ -77,7 +77,7 @@
     After removing an expired link, we can put the key back in the key-DB to be reused.
     Should we remove links that haven’t been visited in some length of time, say six months? This could be tricky. Since storage is getting cheap, we can decide to keep links forever.
     *
-* 11 telemetry
+* 11 telemetry: automated communication among multiple sources in distributed systems
 * 12. Security and Permissions#
     Can users create private URLs or allow a particular set of users to access a URL?
     We can store the permission level (public/private) with each URL in the database. We can also create a separate table to store UserIDs that have permission to see a specific URL. If a user does not have permission and tries to access a URL, we can send an error (HTTP 401) back. Given that we are storing our data in a NoSQL wide-column database like Cassandra, the key for the table storing permissions would be the ‘Hash’ (or the KGS generated ‘key’). The columns will store the UserIDs of those users that have permission to see the URL.
