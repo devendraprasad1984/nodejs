@@ -1,6 +1,19 @@
 //sorted array rotated unknown number of time, find an index faster than linear time - Binary Search
 //Dont change the array, its circular in nature and rotated from sorted array
 
+function arrRotationTimes(arr) {
+  //basically find the min value and its index, because if it were not rotated, it would have been at zero actually
+  let firstValue = arr[0]
+  let firstIndex = 0
+  for (let i in arr) {
+    if (arr[i] < firstValue) {
+      firstIndex = i
+      firstValue = arr[i]
+    }
+  }
+  console.log('number of rotations performed is', firstIndex, ' times and first element was', firstValue)
+}
+
 function findIndexBinSearch(find, arr) {
   // let sortedArr = [...arr].sort((a, b) => a - b) //deep copy, O(nlogn) for any sorting
   let start = 0
@@ -11,8 +24,7 @@ function findIndexBinSearch(find, arr) {
   let originalPosition = -1
   //O(logn)
   while (end >= start) {
-    let mid = start + Math.floor((end - start) / 2)
-
+    let mid = Math.floor((start + end) / 2)
     if (find === arr[mid]) {
       found = true
       foundIndex = mid
@@ -23,25 +35,13 @@ function findIndexBinSearch(find, arr) {
       end = mid - 1
     }
   }
-  // if (found) {
-  //   let countIndex = 0
-  //   //check original position by linear run
-  //   //O(N)
-  //   for (let i of arr) {
-  //     if (i !== find) {
-  //       countIndex++
-  //     } else {
-  //       break
-  //     }
-  //   }
-  //   originalPosition = countIndex
-  // }
   return {found, foundIndex, originalPosition}
 }
 
 let arr = [13, 18, 25, 2, 8, 10]
 // let sortedArr = [2, 8, 10, 13, 18, 25]
 let find = 8
+arrRotationTimes(arr)
 let {found, foundIndex, originalPosition} = findIndexBinSearch(find, arr)
 
 if (found) {
