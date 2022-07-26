@@ -14,6 +14,23 @@ function arrRotationTimes(arr) {
   console.log('number of rotations performed is', firstIndex, ' times and first element was', firstValue)
 }
 
+function countRotationsUsingBinarySearch(arr, n) {
+  let low = 0, high = n - 1
+  while (low <= high) {
+    let mid = low + Math.floor((high - low) / 2)
+    let prevIndex = (mid - 1 + n) % n //applying mod means, it wont go out of bounds
+    let nextIndex = (mid + 1) % n
+    if (arr[mid] <= arr[prevIndex] && arr[mid] <= arr[nextIndex]) {
+      return mid
+    } else if (arr[mid] <= arr[high]) {
+      high = mid - 1
+    } else if (arr[mid] >= arr[low]) {
+      low = mid + 1
+    }
+  }
+  return 0
+}
+
 function findIndexBinSearch(find, arr) {
   // let sortedArr = [...arr].sort((a, b) => a - b) //deep copy, O(nlogn) for any sorting
   let start = 0
@@ -42,6 +59,7 @@ let arr = [13, 18, 25, 2, 8, 10]
 // let sortedArr = [2, 8, 10, 13, 18, 25]
 let find = 8
 arrRotationTimes(arr)
+console.log('count rotation using binary search', countRotationsUsingBinarySearch(arr, arr.length))
 let {found, foundIndex, originalPosition} = findIndexBinSearch(find, arr)
 
 if (found) {
