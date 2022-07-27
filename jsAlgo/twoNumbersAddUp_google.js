@@ -9,15 +9,34 @@
 
  */
 
-
 let arr = [10, 15, 3, 7]
 let k = 17
-
 let diff = -1
-for (let num of arr) {
-  diff = k - num
-  if (arr.indexOf(diff) !== -1) {
-    console.log('present in the array', k, num, diff)
-    break
+let dict = {}
+
+function solution1() {
+  for (let num of arr) {
+    diff = k - num
+    if (arr.indexOf(diff) !== -1) {
+      console.log('present in the array', k, num, diff)
+      break
+    }
+  }
+  //complexity: O(n^2) - quadratic
+}
+
+function solution2() {
+  for (let i of arr) {
+    dict[k - i] = true
+  }
+  console.log(dict)
+  for (let num of arr) {
+    diff = k - num
+    if (dict[diff] !== undefined) {
+      console.log('present in the array', k, num, diff)
+      break
+    }
   }
 }
+
+solution2()
