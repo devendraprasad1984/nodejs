@@ -47,8 +47,8 @@ function solution1(arr) {
 function solution2(arr) {
   let positiveArr = []
   //separate already -ve numbers to left most side of arr
-  for(let i=0;i<arr.length; i++){
-    if(arr[i]>0) positiveArr.push(arr[i])
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] > 0) positiveArr.push(arr[i])
   }
 
   //find missing
@@ -69,6 +69,33 @@ function solution2(arr) {
   return size + 1
 }
 
+function solution3(arr) {
+  //create an array of 0s and fill with 1 when positive number is found. iterate again and return index+1 when we first encounter 0
+  let size = arr.length
+  let newArr = new Array(size + 1)
+  newArr.fill(0) //O(N)
+  for (let i = 0; i < size; i++) {
+    if (arr[i] > 0 && arr[i] <= size)
+      newArr[arr[i]] = 1
+  }
+  console.log(arr, newArr)
+  for (let i = 1; i <= size; i++) {
+    if (newArr[i] === 0) {
+      return i
+    }
+  }
+  return size + 1
+}
+
+console.log('solution1')
+console.log(solution1([3, 4, -1, 1]))
+console.log(solution1([1, 2, 0]))
+
+console.log('solution2')
 console.log(solution2([3, 4, -1, 1]))
-console.log(solution2([1,2,0]))
+console.log(solution2([1, 2, 0]))
+
+console.log('solution3')
+console.log(solution3([3, 4, -1, 1]))
+console.log(solution3([1, 2, 0]))
 
