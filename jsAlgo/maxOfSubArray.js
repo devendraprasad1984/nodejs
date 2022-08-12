@@ -18,18 +18,12 @@ let size = arr.length
 let k = 3
 
 function solution1() {
-  for (let i = 0; i < size; i++) {
-    let max = -1
-    let counter = 0
+  for (let i = 0; i <= size - k; i++) {
+    let max = arr[i]
     for (let j = i; j < k + i; j++) {
-      if (j < size) {
-        counter += 1
-        max = max > arr[j] ? max : arr[j]
-      }
+      max = max > arr[j] ? max : arr[j]
     }
-    if (counter === k) {
-      console.log('max of is', max)
-    }
+    console.log('max of is', max)
   }
 }
 
