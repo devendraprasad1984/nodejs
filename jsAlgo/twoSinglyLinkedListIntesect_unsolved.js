@@ -21,7 +21,7 @@ function flatten(node) {
     arr.push(cur.data)
     cur = cur.next
   }
-  return arr
+  return arr.join('->')
 }
 
 function getCount(node) {
@@ -34,6 +34,32 @@ function getCount(node) {
   return count
 }
 
+function getIntersectionPoint(node1, node2) {
+  let c1Counter = getCount(node1)
+  let c2Counter = getCount(node2)
+  let diffCounter = c1Counter - c2Counter
+  //get diffCounter between lists
+  if (c2Counter > c1Counter) {
+    let tmp = node2
+    node2 = node1
+    node1 = tmp
+    diffCounter = c2Counter - c1Counter
+  }
+  //find the endpoint of smaller list
+  let cur1 = node1
+  let cur2 = node2
+  for (let i = 0; i < diffCounter; i++) {
+    if (cur1 === null) return -1
+    cur1 = cur1.next
+  }
+  //loop to get intersecting point
+  while (cur1 !== null && cur2 !== null) {
+    if (cur1.data === cur2.data) return cur1.data
+    cur1 = cur1.next
+    cur2 = cur2.next
+  }
+}
+
 
 let list1, list2
 list1 = new Node(3)
@@ -43,8 +69,8 @@ list1.next.next.next = new Node(10)
 
 list2 = new Node(99)
 list2.next = new Node(1)
-list2.next.next = new Node(8)
-list2.next.next.next = new Node(10)
+// list2.next.next = new Node(8)
+list2.next.next = new Node(10)
 
 console.log('singly linked list 1', list1)
 console.log('singly linked list 2', list2)
@@ -53,3 +79,6 @@ console.log('singly linked flatten list 1', flatten(list1))
 console.log('singly linked flatten list 2', flatten(list2))
 
 console.log(getCount(list1), getCount(list2))
+
+
+console.log('intersection is ',getIntersectionPoint(list1, list2))
