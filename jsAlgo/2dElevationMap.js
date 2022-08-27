@@ -8,7 +8,7 @@
 
 //trapping rain water, vertical bar problem, increasing or decreasing order, water cant be collected as it will overflow
 //we cant store water at corners
-function countWaterLevelDiffToNext(arr) {
+function trappingRainWater(arr) {
   //big(N^2), naive soln
   let size = arr.length
   let countOfWater = 0
@@ -27,6 +27,32 @@ function countWaterLevelDiffToNext(arr) {
   return countOfWater
 }
 
-countWaterLevelDiffToNext([2, 1, 2]) //1 unit of water
-countWaterLevelDiffToNext([3, 0, 1, 3, 0, 5]) //8 unit of water
+function trappingRainWaterON(arr) {
+  //big(N), efficient soln - precompute lmax and rmax
+  let size = arr.length
+  let countOfWater = 0
+  let lmax = new Array(size), rmax = new Array(size)
+  lmax[0] = arr[0]
+  rmax[size - 1] = arr[size - 1]
+  //precompute lmax
+  for (let i = 1; i < size; i++) {
+    lmax[i] = Math.max(arr[i], lmax[i - 1])
+  }
+  //precompute rmax
+  for (let i = size - 2; i >= 0; i--) {
+    rmax[i] = Math.max(arr[i], rmax[i + 1])
+  }
 
+  for (let i = 1; i < size - 1; i++) {
+    countOfWater += Math.min(lmax[i], rmax[i]) - arr[i]
+  }
+  console.log(countOfWater)
+  return countOfWater
+}
+
+
+trappingRainWater([2, 1, 2]) //1 unit of water
+trappingRainWater([3, 0, 1, 3, 0, 5]) //8 unit of water
+
+trappingRainWaterON([2, 1, 2]) //1 unit of water
+trappingRainWaterON([3, 0, 1, 3, 0, 5]) //8 unit of water
