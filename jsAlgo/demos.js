@@ -1,4 +1,4 @@
-﻿
+﻿//update
 function generatedata(rowscount, hasNullValues) {
     // prepare the data
     var data = new Array();
